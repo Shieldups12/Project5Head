@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     public int playerScore = 0;
 
     [SerializeField]
-    private Text mathProblemText;
+    private TMP_Text mathProblemText;
 
     [SerializeField]
     private float timeBetweenQuestions = 0f;

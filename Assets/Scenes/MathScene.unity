@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 61648292}
   - component: {fileID: 61648291}
   m_Layer: 5
-  m_Name: MathProblem(TMP)
+  m_Name: Math Problem (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,10 +254,10 @@ RectTransform:
   m_Father: {fileID: 1794962505}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000013351, y: 0}
-  m_SizeDelta: {x: 303, y: 129.1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 64}
+  m_SizeDelta: {x: 3, y: 129.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61648291
 MonoBehaviour:
@@ -308,9 +308,9 @@ MonoBehaviour:
   m_fontSize: 40
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 644931003}
   - component: {fileID: 644931002}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -926,12 +926,12 @@ MonoBehaviour:
     answerMinus: 1
     answerTimes: 0
     answerDivide: 0
-  - mathProblem: "1\u25A2 3 = 3"
+  - mathProblem: "1 \u25A2 3 = 3"
     answerPlus: 0
     answerMinus: 0
     answerTimes: 1
     answerDivide: 0
-  - mathProblem: "1 \u25A2 1 = 1"
+  - mathProblem: "2 \u25A2 2 = 1"
     answerPlus: 0
     answerMinus: 0
     answerTimes: 0
@@ -951,351 +951,11 @@ MonoBehaviour:
     answerMinus: 0
     answerTimes: 1
     answerDivide: 0
-  - mathProblem: "2 \u25A2 1 = 2"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "3 \u25A2 6 = 9"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "3 \u25A2 1 = 2"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "3 \u25A2 4 = 12"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "3 \u25A2 1 = 3"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "4 \u25A2 8 = 12"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "4 \u25A2 3 = 1"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "4 \u25A2 2 = 8"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "4 \u25A2 1 = 4"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "5 \u25A2 2 = 7"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "5 \u25A2 2 = 3"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "5 \u25A2 2 = 10"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "5 \u25A2 5 = 1"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "6 \u25A2 1 = 7"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "6 \u25A2 2 = 4"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "6 \u25A2 3 = 18"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
   - mathProblem: "6 \u25A2 3 = 2"
     answerPlus: 0
     answerMinus: 0
     answerTimes: 0
     answerDivide: 1
-  - mathProblem: "7 \u25A2 2 = 9"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "7 \u25A2 3 = 4"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "7 \u25A2 5 = 35"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "7 \u25A2 1 = 7"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "8 \u25A2 9 = 17"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "8 \u25A2 6 = 2"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "8 \u25A2 2 = 16"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "8 \u25A2 4 = 2"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "9 \u25A2 3 = 12"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "9 \u25A2 3 = 6"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "9 \u25A2 4 = 36"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "9 \u25A2 3 = 3"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "10 \u25A2 2 = 12"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "10 \u25A2 4 = 6"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "10 \u25A2 5 = 50"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "10 \u25A2 2 = 5"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "11 \u25A2 3 = 14"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "11 \u25A2 7 = 4"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "11 \u25A2 7 = 77"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "11 \u25A2 11 = 1"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "12 \u25A2 7 = 19"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "12 \u25A2 6 = 6"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "12 \u25A2 2 = 24"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "12 \u25A2 4 = 3"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "13 \u25A2 2 = 15"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "13 \u25A2 8 = 5"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "13 \u25A2 2 = 26"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "13 \u25A2 13 = 1"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "14 \u25A2 5 = 19"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "14 \u25A2 5 = 9"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "14 \u25A2 2 = 28"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "14 \u25A2 7 = 2"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "15 \u25A2 3 = 18"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "15 \u25A2 12 = 3"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "15 \u25A2 2 = 30"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "15 \u25A2 3 = 5"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "16 \u25A2 2 = 18"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "16 \u25A2 4 = 12"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "16 \u25A2 2 = 36"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "16 \u25A2 8 = 2"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "12 \u25A2 3 = 4"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "17 \u25A2 7 = 24"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "17 \u25A2 9 = 8"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "17 \u25A2 2 = 34"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "17 \u25A2 17 = 1"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "18 \u25A2 2 = 20"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "18 \u25A2 9 = 9"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "18 \u25A2 1 = 18"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
-  - mathProblem: "18 \u25A2 3 = 6"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 1
-  - mathProblem: "19 \u25A2 6 = 25"
-    answerPlus: 1
-    answerMinus: 0
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "19 \u25A2 8 = 11"
-    answerPlus: 0
-    answerMinus: 1
-    answerTimes: 0
-    answerDivide: 0
-  - mathProblem: "19 \u25A2 2 = 38"
-    answerPlus: 0
-    answerMinus: 0
-    answerTimes: 1
-    answerDivide: 0
   playerScore: 0
   mathProblemText: {fileID: 61648291}
   timeBetweenQuestions: 0
@@ -1307,7 +967,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644931001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 340.64505, y: 329.93396, z: -143.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1683,7 +1343,7 @@ GameObject:
   - component: {fileID: 793083858}
   - component: {fileID: 793083857}
   m_Layer: 5
-  m_Name: PanelLayer
+  m_Name: Panel Layer
   m_TagString: MaterialButtonLayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1772,7 +1432,7 @@ GameObject:
   - component: {fileID: 813622786}
   - component: {fileID: 813622785}
   m_Layer: 5
-  m_Name: Score(TMP)
+  m_Name: Score (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3647,7 +3307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794962505}
   m_Layer: 5
-  m_Name: QuestionPanel
+  m_Name: Question Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3670,10 +3330,10 @@ RectTransform:
   m_Father: {fileID: 1863350239}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -180.59998}
-  m_SizeDelta: {x: -54, y: 129.1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 133.90002}
+  m_SizeDelta: {x: 300, y: 128.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1817889573
 GameObject:

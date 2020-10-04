@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameManager_MathProblem : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager_MathProblem instance;
 
     public Question[] questions;
     private static List<Question> unansweredQuestions;
@@ -44,6 +44,58 @@ public class GameManager : MonoBehaviour
         int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
         currentQuestion = unansweredQuestions[randomQuestionIndex];
 
+        ////1 = +
+        ////2 = -
+        ////3 = /
+        ////4 = X
+        //int mathSymbol = Random.Range(1, 5);
+        //int firstNumber = Random.Range(1, 20);
+        //int secondNumber = Random.Range(1, 20);
+        //float answerNumber = 0f;
+        //currentQuestion = new Question();
+        //Debug.Log(mathSymbol);
+        //switch (mathSymbol)
+        //{
+        //    case 1:
+        //        currentQuestion.answerPlus = true;
+        //        break;
+        //    case 2:
+        //        currentQuestion.answerMinus = true;
+        //        break;
+        //    case 3:
+        //        currentQuestion.answerDivide = true;
+        //        break;
+        //    case 4:
+        //        currentQuestion.answerTimes = true;
+        //        break;
+        //}
+
+        //if (currentQuestion.answerPlus)
+        //{
+        //    answerNumber = firstNumber + secondNumber;
+        //}
+        //else if (currentQuestion.answerMinus)
+        //{
+        //    answerNumber = firstNumber - secondNumber;
+        //}
+        //else if (currentQuestion.answerDivide)
+        //{
+        //    answerNumber = (float)firstNumber / (float)secondNumber;
+        //}
+        //else if (currentQuestion.answerTimes)
+        //{
+        //    answerNumber = firstNumber * secondNumber;
+        //}
+
+        //if (currentQuestion.answerDivide)
+        //{
+        //    currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Math.Round(answerNumber, 2);
+        //}
+        //else
+        //{
+        //    currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
+        //}
+
         mathProblemText.text = currentQuestion.mathProblem;
     }
 
@@ -67,6 +119,8 @@ public class GameManager : MonoBehaviour
         } else
         {
             Debug.Log("Wrong");
+            PlayerPrefs.SetInt("Player Score", playerScore);
+            StartCoroutine(TransitionToNextQuestion());
         }
     }
 
@@ -82,6 +136,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            PlayerPrefs.SetInt("Player Score", playerScore);
+            StartCoroutine(TransitionToNextQuestion());
         }
     }
     public void UserSelectTimes()
@@ -96,6 +152,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            PlayerPrefs.SetInt("Player Score", playerScore);
+            StartCoroutine(TransitionToNextQuestion());
         }
     }
     public void UserSelectDivide()
@@ -110,6 +168,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            PlayerPrefs.SetInt("Player Score", playerScore);
+            StartCoroutine(TransitionToNextQuestion());
         }
     }
 }

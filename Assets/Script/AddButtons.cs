@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class AddButtons : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Transform puzzleField;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private GameObject puzzleButton;
+
+    void Awake()
     {
-        
+        for(int i = 0; i < 12; i++)
+        {
+            GameObject button = Instantiate(puzzleButton);
+            button.name = "Button " + i;
+            button.transform.SetParent(puzzleField, false);
+        }
     }
 }

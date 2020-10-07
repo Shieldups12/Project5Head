@@ -44,10 +44,6 @@ public class GameManager_MathProblem : MonoBehaviour
         int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
         currentQuestion = unansweredQuestions[randomQuestionIndex];
 
-        ////1 = +
-        ////2 = -
-        ////3 = /
-        ////4 = X
         //int mathSymbol = Random.Range(1, 5);
         //int firstNumber = Random.Range(1, 20);
         //int secondNumber = Random.Range(1, 20);

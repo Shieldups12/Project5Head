@@ -315,7 +315,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: -10, y: -10}
+  m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!1 &909578764
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleField: {fileID: 678312730}
-  puzzleButton: {fileID: 7463773978695098276, guid: dda9138e8810faf4199d87a5b290eeb1,
+  puzzleButton: {fileID: 6147401850741064167, guid: b71212b5ad47e30469401cacd6920a2d,
     type: 3}
 --- !u!4 &1263399614
 Transform:

@@ -12,9 +12,9 @@ public class AddButtons : MonoBehaviour
 
     void Awake()
     {
-        for(int i = 0; i < 12; i++)
+        for(int i = 0; i < 9; i++)
         {
-            GameObject button = Instantiate(puzzleButton);
+            GameObject button = Instantiate(puzzleButton) as GameObject;
             button.name = "Button " + i;
             button.transform.SetParent(puzzleField, false);
         }

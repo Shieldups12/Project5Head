@@ -8,9 +8,8 @@ public class ScoreManager : MonoBehaviour
 {
     public TMP_Text scoreText;
 
-    // Update is called once per frame
     void Update()
     {
-        scoreText.text = PlayerPrefs.GetInt("Player Score").ToString();
+        scoreText.text = PlayerPrefs.GetInt("Math_Score").ToString();
     }
 }

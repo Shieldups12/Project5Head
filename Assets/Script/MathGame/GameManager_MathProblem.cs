@@ -31,7 +31,7 @@ public class GameManager_MathProblem : MonoBehaviour
         }
         SetCurrentQuestion();
 
-        playerScore = PlayerPrefs.GetInt("Player Score", 0);
+        playerScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
 
     void Awake()
@@ -41,56 +41,56 @@ public class GameManager_MathProblem : MonoBehaviour
 
     void SetCurrentQuestion()
     {
-        int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
-        currentQuestion = unansweredQuestions[randomQuestionIndex];
+        //int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
+        //currentQuestion = unansweredQuestions[randomQuestionIndex];
 
-        //int mathSymbol = Random.Range(1, 5);
-        //int firstNumber = Random.Range(1, 20);
-        //int secondNumber = Random.Range(1, 20);
-        //float answerNumber = 0f;
-        //currentQuestion = new Question();
-        //Debug.Log(mathSymbol);
-        //switch (mathSymbol)
-        //{
-        //    case 1:
-        //        currentQuestion.answerPlus = true;
-        //        break;
-        //    case 2:
-        //        currentQuestion.answerMinus = true;
-        //        break;
-        //    case 3:
-        //        currentQuestion.answerDivide = true;
-        //        break;
-        //    case 4:
-        //        currentQuestion.answerTimes = true;
-        //        break;
-        //}
+        int mathSymbol = Random.Range(1, 5);
+        int firstNumber = Random.Range(1, 20);
+        int secondNumber = Random.Range(1, 20);
+        float answerNumber = 0f;
+        currentQuestion = new Question();
+        Debug.Log(mathSymbol);
+        switch (mathSymbol)
+        {
+            case 1:
+                currentQuestion.answerPlus = true;
+                break;
+            case 2:
+                currentQuestion.answerMinus = true;
+                break;
+            case 3:
+                currentQuestion.answerDivide = true;
+                break;
+            case 4:
+                currentQuestion.answerTimes = true;
+                break;
+        }
 
-        //if (currentQuestion.answerPlus)
-        //{
-        //    answerNumber = firstNumber + secondNumber;
-        //}
-        //else if (currentQuestion.answerMinus)
-        //{
-        //    answerNumber = firstNumber - secondNumber;
-        //}
-        //else if (currentQuestion.answerDivide)
-        //{
-        //    answerNumber = (float)firstNumber / (float)secondNumber;
-        //}
-        //else if (currentQuestion.answerTimes)
-        //{
-        //    answerNumber = firstNumber * secondNumber;
-        //}
+        if (currentQuestion.answerPlus)
+        {
+            answerNumber = firstNumber + secondNumber;
+        }
+        else if (currentQuestion.answerMinus)
+        {
+            answerNumber = firstNumber - secondNumber;
+        }
+        else if (currentQuestion.answerDivide)
+        {
+            answerNumber = (float)firstNumber / (float)secondNumber;
+        }
+        else if (currentQuestion.answerTimes)
+        {
+            answerNumber = firstNumber * secondNumber;
+        }
 
-        //if (currentQuestion.answerDivide)
-        //{
-        //    currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Math.Round(answerNumber, 2);
-        //}
-        //else
-        //{
-        //    currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
-        //}
+        if (currentQuestion.answerDivide)
+        {
+            currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Math.Round(answerNumber, 2);
+        }
+        else
+        {
+            currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
+        }
 
         mathProblemText.text = currentQuestion.mathProblem;
     }
@@ -110,12 +110,12 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerScore += 10;
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         } else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -126,13 +126,13 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerScore += 10;
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -142,13 +142,13 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerScore += 10;
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -158,13 +158,13 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerScore += 10;
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Player Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }

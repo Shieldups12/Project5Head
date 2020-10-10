@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: bbda5aabf1ce6d3499e4fd4642617050
+  - enabled: 1
+    path: Assets/Scenes/MathGame.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MemoryGame.unity
+    guid: ced4ceb13e42fbc4b962a703a88c8d97
   m_configObjects: {}

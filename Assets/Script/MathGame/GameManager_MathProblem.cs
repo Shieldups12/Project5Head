@@ -38,15 +38,26 @@ public class GameManager_MathProblem : MonoBehaviour
     {
         instance = this;
     }
-
+    List<int> FindPossibleDivisor(int number)
+    {
+        List<int> divisorList = new List<int>();
+        for (int i = 1; i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                divisorList.Add(i);
+            }
+        }
+        return divisorList;
+    }
     void SetCurrentQuestion()
     {
         //int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
         //currentQuestion = unansweredQuestions[randomQuestionIndex];
-
+        
         int mathSymbol = Random.Range(1, 5);
-        int firstNumber = Random.Range(1, 20);
-        int secondNumber = Random.Range(1, 20);
+        int firstNumber = Random.Range(1, 21);
+        int secondNumber = Random.Range(1, 21);
         float answerNumber = 0f;
         currentQuestion = new Question();
         Debug.Log(mathSymbol);
@@ -76,6 +87,10 @@ public class GameManager_MathProblem : MonoBehaviour
         }
         else if (currentQuestion.answerDivide)
         {
+            List<int> possibleDivisor = new List<int>();
+            System.Random rnd = new System.Random();
+            possibleDivisor = FindPossibleDivisor(firstNumber);
+            secondNumber = possibleDivisor[rnd.Next(0, possibleDivisor.Count)];
             answerNumber = (float)firstNumber / (float)secondNumber;
         }
         else if (currentQuestion.answerTimes)
@@ -83,14 +98,24 @@ public class GameManager_MathProblem : MonoBehaviour
             answerNumber = firstNumber * secondNumber;
         }
 
-        if (currentQuestion.answerDivide)
+        if(answerNumber == firstNumber + secondNumber)
         {
-            currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Math.Round(answerNumber, 2);
+            currentQuestion.answerPlus = true;
         }
-        else
+        if (answerNumber == firstNumber * secondNumber)
         {
-            currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
+            currentQuestion.answerTimes = true;
         }
+        if (answerNumber == firstNumber - secondNumber)
+        {
+            currentQuestion.answerMinus = true;
+        }
+        if (answerNumber == (float)firstNumber / (float)secondNumber)
+        {
+            currentQuestion.answerDivide = true;
+        }
+
+        currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
         mathProblemText.text = currentQuestion.mathProblem;
     }

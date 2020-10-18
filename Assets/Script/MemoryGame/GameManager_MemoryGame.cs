@@ -69,7 +69,7 @@ public class GameManager_MemoryGame : MonoBehaviour
 
     IEnumerator RevertTileColor()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < puzzleButtons.Count; i++)
         {

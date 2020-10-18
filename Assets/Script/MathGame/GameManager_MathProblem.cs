@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.UI;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -14,18 +14,24 @@ public class GameManager_MathProblem : MonoBehaviour
     public Question[] questions;
     private Question currentQuestion;
     private static List<Question> unansweredQuestions;
-     
+
     [SerializeField]
     private TMP_Text mathProblemText;
 
     [SerializeField]
     private float timeBetweenQuestions = 0f;
 
-    //Math problem variable
+    //math problem variable
     int mathSymbol;
     int firstNumber;
     int secondNumber;
     float answerNumber;
+
+    //timer variable
+    private float timeRemaining;
+    private const float timerMax = 30f;
+    public Slider sliderRight;
+    public Slider sliderLeft;
 
     void Start()
     {
@@ -33,10 +39,12 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             unansweredQuestions = questions.ToList<Question>();
         }
+
         RandomizeCurrentQuestion();
         SetCurrentQuestion();
         CheckAnswer();
         DisplayQuestion();
+        EndScreen();
 
         playerScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
@@ -58,6 +66,28 @@ public class GameManager_MathProblem : MonoBehaviour
             }
         }
         return divisorList;
+    }
+
+    //timer countdown
+    void Update()
+    {
+        sliderRight.value = CalculateSliderValue();
+        sliderLeft.value = CalculateSliderValue();
+        timeRemaining = timerMax;
+
+        if (timeRemaining <= 0)
+        {
+            timeRemaining = 0;
+        }
+        else if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.time; //harusnya time.deltaTime, cuman gatau kenapa gak bisa
+        }
+    }
+
+    float CalculateSliderValue()
+    {
+        return (timeRemaining / timerMax);
     }
 
     //randomize question
@@ -142,6 +172,14 @@ public class GameManager_MathProblem : MonoBehaviour
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
         mathProblemText.text = currentQuestion.mathProblem;
+    }
+
+    void EndScreen()
+    {
+        if (timeRemaining < 0)//harusnya timeRemaining == 0. tapi kalau gitu selalu kekick ke menu
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     //transition to the next question (0s)

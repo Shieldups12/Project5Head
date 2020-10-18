@@ -9,19 +9,23 @@ using TMPro;
 public class GameManager_MathProblem : MonoBehaviour
 {
     public static GameManager_MathProblem instance;
-
-    public Question[] questions;
-    private static List<Question> unansweredQuestions;
-
-    private Question currentQuestion;
-
     public int playerScore = 0;
 
+    public Question[] questions;
+    private Question currentQuestion;
+    private static List<Question> unansweredQuestions;
+     
     [SerializeField]
     private TMP_Text mathProblemText;
 
     [SerializeField]
     private float timeBetweenQuestions = 0f;
+
+    //Math problem variable
+    int mathSymbol;
+    int firstNumber;
+    int secondNumber;
+    float answerNumber;
 
     void Start()
     {
@@ -29,7 +33,10 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             unansweredQuestions = questions.ToList<Question>();
         }
+        RandomizeCurrentQuestion();
         SetCurrentQuestion();
+        CheckAnswer();
+        DisplayQuestion();
 
         playerScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
@@ -38,6 +45,8 @@ public class GameManager_MathProblem : MonoBehaviour
     {
         instance = this;
     }
+
+    //check for possible comma answer for division
     List<int> FindPossibleDivisor(int number)
     {
         List<int> divisorList = new List<int>();
@@ -50,17 +59,19 @@ public class GameManager_MathProblem : MonoBehaviour
         }
         return divisorList;
     }
-    void SetCurrentQuestion()
+
+    //randomize question
+    void RandomizeCurrentQuestion()
     {
-        //int randomQuestionIndex = Random.Range(0, unansweredQuestions.Count);
-        //currentQuestion = unansweredQuestions[randomQuestionIndex];
-        
-        int mathSymbol = Random.Range(1, 5);
-        int firstNumber = Random.Range(1, 21);
-        int secondNumber = Random.Range(1, 21);
-        float answerNumber = 0f;
+        mathSymbol = Random.Range(1, 5);
+        firstNumber = Random.Range(1, 21);
+        secondNumber = Random.Range(1, 21);
+        answerNumber = 0f;
+
         currentQuestion = new Question();
+
         Debug.Log(mathSymbol);
+
         switch (mathSymbol)
         {
             case 1:
@@ -70,13 +81,18 @@ public class GameManager_MathProblem : MonoBehaviour
                 currentQuestion.answerMinus = true;
                 break;
             case 3:
-                currentQuestion.answerDivide = true;
+                currentQuestion.answerTimes = true;
                 break;
             case 4:
-                currentQuestion.answerTimes = true;
+                currentQuestion.answerDivide = true;
                 break;
         }
 
+    }
+
+    //set current question's answer
+    void SetCurrentQuestion()
+    {
         if (currentQuestion.answerPlus)
         {
             answerNumber = firstNumber + secondNumber;
@@ -97,8 +113,12 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             answerNumber = firstNumber * secondNumber;
         }
+    }
 
-        if(answerNumber == firstNumber + secondNumber)
+    //check answer if there's possible way for two answer
+    void CheckAnswer()
+    {
+        if (answerNumber == firstNumber + secondNumber)
         {
             currentQuestion.answerPlus = true;
         }
@@ -114,12 +134,17 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             currentQuestion.answerDivide = true;
         }
+    }
 
+    //display question on screen
+    void DisplayQuestion()
+    {
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
         mathProblemText.text = currentQuestion.mathProblem;
     }
 
+    //transition to the next question (0s)
     IEnumerator TransitionToNextQuestion()
     {
         unansweredQuestions.Remove(currentQuestion);
@@ -129,6 +154,7 @@ public class GameManager_MathProblem : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    //button click plus answer
     public void UserSelectPlus()
     {
         if (currentQuestion.answerPlus)
@@ -145,6 +171,7 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
+    //button click minus answer
     public void UserSelectMinus()
     {
         if (currentQuestion.answerMinus)
@@ -161,6 +188,8 @@ public class GameManager_MathProblem : MonoBehaviour
             StartCoroutine(TransitionToNextQuestion());
         }
     }
+
+    //button click times answer
     public void UserSelectTimes()
     {
         if (currentQuestion.answerTimes)
@@ -177,6 +206,8 @@ public class GameManager_MathProblem : MonoBehaviour
             StartCoroutine(TransitionToNextQuestion());
         }
     }
+
+    //button click divide answer
     public void UserSelectDivide()
     {
         if (currentQuestion.answerDivide)

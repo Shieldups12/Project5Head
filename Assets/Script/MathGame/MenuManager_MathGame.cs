@@ -10,4 +10,16 @@ public class MenuManager_MathGame : MonoBehaviour
         PlayerPrefs.DeleteKey("Math_Score");
         SceneManager.LoadScene(0);
     }
+
+    void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PlayerPrefs.DeleteKey("Math_Score");
+                SceneManager.LoadScene(0);
+            }
+        }
+    }
 }

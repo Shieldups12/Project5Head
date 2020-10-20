@@ -28,8 +28,8 @@ public class GameManager_MathProblem : MonoBehaviour
     float answerNumber;
 
     //timer variable
-    private float timeRemaining;
-    private const float timerMax = 30f;
+    private float timeRemaining = 30f;
+    //private const float timerMax = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
 
@@ -44,7 +44,6 @@ public class GameManager_MathProblem : MonoBehaviour
         SetCurrentQuestion();
         CheckAnswer();
         DisplayQuestion();
-        EndScreen();
 
         playerScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
@@ -71,9 +70,13 @@ public class GameManager_MathProblem : MonoBehaviour
     //timer countdown
     void Update()
     {
-        sliderRight.value = CalculateSliderValue();
-        sliderLeft.value = CalculateSliderValue();
-        timeRemaining = timerMax;
+        //sliderRight.value = CalculateSliderValue();
+        //sliderLeft.value = CalculateSliderValue();
+
+        //timeRemaining = timerMax;
+
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
 
         if (timeRemaining <= 0)
         {
@@ -81,14 +84,20 @@ public class GameManager_MathProblem : MonoBehaviour
         }
         else if (timeRemaining > 0)
         {
-            timeRemaining -= Time.time; //harusnya time.deltaTime, cuman gatau kenapa gak bisa
+            timeRemaining -= Time.deltaTime; //harusnya time.deltaTime, cuman gatau kenapa gak bisa
+        }
+
+        if (timeRemaining == 0)//harusnya timeRemaining == 0. tapi kalau gitu selalu kekick ke menu
+        {
+            PlayerPrefs.DeleteKey("Math_Score");
+            SceneManager.LoadScene(0);
         }
     }
 
-    float CalculateSliderValue()
-    {
-        return (timeRemaining / timerMax);
-    }
+    //float CalculateSliderValue()
+    //{
+    //    return (timeRemaining / timerMax);
+    //}
 
     //randomize question
     void RandomizeCurrentQuestion()
@@ -120,7 +129,7 @@ public class GameManager_MathProblem : MonoBehaviour
 
     }
 
-    //set current question's answer
+    //set current question answer
     void SetCurrentQuestion()
     {
         if (currentQuestion.answerPlus)
@@ -172,14 +181,6 @@ public class GameManager_MathProblem : MonoBehaviour
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
         mathProblemText.text = currentQuestion.mathProblem;
-    }
-
-    void EndScreen()
-    {
-        if (timeRemaining < 0)//harusnya timeRemaining == 0. tapi kalau gitu selalu kekick ke menu
-        {
-            SceneManager.LoadScene(0);
-        }
     }
 
     //transition to the next question (0s)

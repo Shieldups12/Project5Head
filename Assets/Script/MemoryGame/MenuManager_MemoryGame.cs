@@ -9,4 +9,15 @@ public class MenuManager_MemoryGame : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
+    }
 }

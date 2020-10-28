@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +29,10 @@ public class GameManager_MathProblem : MonoBehaviour
 
     //timer variable
     private float timeRemaining = 30f;
+    private List<int> usedOperatorCounter;
+    private List<char> usedOperator;
+
+    //private const float timerMax = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
 
@@ -39,12 +43,41 @@ public class GameManager_MathProblem : MonoBehaviour
             unansweredQuestions = questions.ToList<Question>();
         }
 
+        playerScore = PlayerPrefs.GetInt("Math_Score", 0);
+        SetupOperatorRandomizer();
         RandomizeCurrentQuestion();
         SetCurrentQuestion();
         CheckAnswer();
         DisplayQuestion();
+    }
 
-        playerScore = PlayerPrefs.GetInt("Math_Score", 0);
+    void SetupOperatorRandomizer()
+    {
+        usedOperatorCounter = new List<int>();
+        usedOperatorCounter.Add(PlayerPrefs.GetInt("Math_Plus_Counter", 0));
+        usedOperatorCounter.Add(PlayerPrefs.GetInt("Math_Minus_Counter", 0));
+        usedOperatorCounter.Add(PlayerPrefs.GetInt("Math_Times_Counter", 0));
+        usedOperatorCounter.Add(PlayerPrefs.GetInt("Math_Divide_Counter", 0));
+        usedOperator = new List<char>();
+        if(usedOperatorCounter.Count > 0)
+        {
+            if(usedOperatorCounter[0] < 2)
+            {
+                usedOperator.Add('+');
+            }
+            if (usedOperatorCounter[1] < 2)
+            {
+                usedOperator.Add('-');
+            }
+            if (usedOperatorCounter[2] < 2)
+            {
+                usedOperator.Add('*');
+            }
+            if (usedOperatorCounter[3] < 2)
+            {
+                usedOperator.Add('/');
+            }
+        }
     }
 
     void Awake()
@@ -69,6 +102,11 @@ public class GameManager_MathProblem : MonoBehaviour
     //timer countdown
     void Update()
     {
+        //sliderRight.value = CalculateSliderValue();
+        //sliderLeft.value = CalculateSliderValue();
+
+        //timeRemaining = timerMax;
+
         sliderRight.value = timeRemaining;
         sliderLeft.value = timeRemaining;
 
@@ -78,19 +116,29 @@ public class GameManager_MathProblem : MonoBehaviour
         }
         else if (timeRemaining > 0)
         {
-            timeRemaining -= Time.deltaTime;
+            timeRemaining -= Time.deltaTime; //harusnya time.deltaTime, cuman gatau kenapa gak bisa
         }
 
-        if (timeRemaining == 0)
+        if (timeRemaining == 0)//harusnya timeRemaining == 0. tapi kalau gitu selalu kekick ke menu
         {
             PlayerPrefs.DeleteKey("Math_Score");
+            PlayerPrefs.DeleteKey("Math_Plus_Counter");
+            PlayerPrefs.DeleteKey("Math_Minus_Counter");
+            PlayerPrefs.DeleteKey("Math_Times_Counter");
+            PlayerPrefs.DeleteKey("Math_Divide_Counter");
             SceneManager.LoadScene(0);
         }
     }
 
+    //float CalculateSliderValue()
+    //{
+    //    return (timeRemaining / timerMax);
+    //}
+
+    //randomize question
     void RandomizeCurrentQuestion()
     {
-        mathSymbol = Random.Range(1, 5);
+        mathSymbol = Random.Range(0, usedOperator.Count);
         firstNumber = Random.Range(1, 21);
         secondNumber = Random.Range(1, 21);
         answerNumber = 0f;
@@ -99,18 +147,18 @@ public class GameManager_MathProblem : MonoBehaviour
 
         Debug.Log(mathSymbol);
 
-        switch (mathSymbol)
+        switch (usedOperator[mathSymbol])
         {
-            case 1:
+            case '+':
                 currentQuestion.answerPlus = true;
                 break;
-            case 2:
+            case '-':
                 currentQuestion.answerMinus = true;
                 break;
-            case 3:
+            case '*':
                 currentQuestion.answerTimes = true;
                 break;
-            case 4:
+            case '/':
                 currentQuestion.answerDivide = true;
                 break;
         }
@@ -161,6 +209,43 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             currentQuestion.answerDivide = true;
         }
+
+        if (currentQuestion.answerPlus)
+        {
+            usedOperatorCounter[0] += 1;
+        }
+        else
+        {
+            usedOperatorCounter[0] = 0;
+        }
+        if (currentQuestion.answerMinus)
+        {
+            usedOperatorCounter[1] += 1;
+        }
+        else
+        {
+            usedOperatorCounter[1] = 0;
+        }
+        if (currentQuestion.answerTimes)
+        {
+            usedOperatorCounter[2] += 1;
+        }
+        else
+        {
+            usedOperatorCounter[2] = 0;
+        }
+        if (currentQuestion.answerDivide)
+        {
+            usedOperatorCounter[3] += 1;
+        }
+        else
+        {
+            usedOperatorCounter[3] = 0;
+        }
+        PlayerPrefs.SetInt("Math_Plus_Counter", usedOperatorCounter[0]);
+        PlayerPrefs.SetInt("Math_Minus_Counter", usedOperatorCounter[1]);
+        PlayerPrefs.SetInt("Math_Times_Counter", usedOperatorCounter[2]);
+        PlayerPrefs.SetInt("Math_Divide_Counter", usedOperatorCounter[3]);
     }
 
     //display question on screen

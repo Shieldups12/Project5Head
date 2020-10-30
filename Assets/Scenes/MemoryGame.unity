@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 678312731}
   - component: {fileID: 678312733}
   m_Layer: 5
-  m_Name: PuzzleField (3x3)
+  m_Name: Puzzle Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -64.97504}
+  m_AnchoredPosition: {x: 0, y: -64.9751}
   m_SizeDelta: {x: 0, y: -130.04993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678312731
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 250, y: 250}
   m_Spacing: {x: 32.5, y: 32.5}
-  m_Constraint: 1
+  m_Constraint: 0
   m_ConstraintCount: 3
 --- !u!1 &909578764
 GameObject:
@@ -602,6 +602,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleButtons: []
+  timeShowAnswer: 1.5
+  gridLayoutGroup: {fileID: 678312733}
 --- !u!114 &1263399616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,7 +785,7 @@ GameObject:
   - component: {fileID: 1788907587}
   - component: {fileID: 1788907586}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

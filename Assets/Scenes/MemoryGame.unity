@@ -602,8 +602,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleButtons: []
-  timeShowAnswer: 1.5
+  addButton: {fileID: 1263399613}
   gridLayoutGroup: {fileID: 678312733}
+  levelCount: 1
+  correctTileCount: 4
+  gridSize: 3
+  timeShowAnswer: 1.5
 --- !u!114 &1263399616
 MonoBehaviour:
   m_ObjectHideFlags: 0

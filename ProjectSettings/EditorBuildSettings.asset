@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MemoryGame.unity
     guid: ced4ceb13e42fbc4b962a703a88c8d97
+  - enabled: 1
+    path: Assets/Scenes/TriviaGame.unity
+    guid: c6f3fd5330163ac4a97ee9db30728ba9
   m_configObjects: {}

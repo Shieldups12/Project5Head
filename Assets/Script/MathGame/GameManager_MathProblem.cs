@@ -11,9 +11,9 @@ public class GameManager_MathProblem : MonoBehaviour
     public static GameManager_MathProblem instance;
     public int playerScore = 0;
 
-    public Question[] questions;
-    private Question currentQuestion;
-    private static List<Question> unansweredQuestions;
+    public MathQuestion[] mathQuestion;
+    private MathQuestion currentQuestion;
+    private static List<MathQuestion> unansweredQuestions;
 
     [SerializeField]
     private TMP_Text mathProblemText;
@@ -36,21 +36,21 @@ public class GameManager_MathProblem : MonoBehaviour
     {
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
-            unansweredQuestions = questions.ToList<Question>();
+            unansweredQuestions = mathQuestion.ToList<MathQuestion>();
         }
 
-        RandomizeCurrentQuestion();
-        SetCurrentQuestion();
-        CheckAnswer();
-        DisplayQuestion();
+        RandomizeMathQuestion();
+        SetMathQuestion();
+        CheckMathAnswer();
+        DisplayMathQuestion();
 
         playerScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
 
-    void Awake()
-    {
-        instance = this;
-    }
+    //void Awake()
+    //{
+    //    instance = this;
+    //}
 
     //check for possible comma answer for division
     List<int> FindPossibleDivisor(int number)
@@ -88,14 +88,14 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
-    void RandomizeCurrentQuestion()
+    void RandomizeMathQuestion()
     {
         mathSymbol = Random.Range(1, 5);
         firstNumber = Random.Range(1, 21);
         secondNumber = Random.Range(1, 21);
         answerNumber = 0f;
 
-        currentQuestion = new Question();
+        currentQuestion = new MathQuestion();
 
         Debug.Log(mathSymbol);
 
@@ -118,7 +118,7 @@ public class GameManager_MathProblem : MonoBehaviour
     }
 
     //set current question answer
-    void SetCurrentQuestion()
+    void SetMathQuestion()
     {
         if (currentQuestion.answerPlus)
         {
@@ -143,7 +143,7 @@ public class GameManager_MathProblem : MonoBehaviour
     }
 
     //check answer if there's possible way for two answer
-    void CheckAnswer()
+    void CheckMathAnswer()
     {
         if (answerNumber == firstNumber + secondNumber)
         {
@@ -164,7 +164,7 @@ public class GameManager_MathProblem : MonoBehaviour
     }
 
     //display question on screen
-    void DisplayQuestion()
+    void DisplayMathQuestion()
     {
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
@@ -178,9 +178,7 @@ public class GameManager_MathProblem : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenQuestions);
 
-        Start();
-
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Invoke("Start", 0f);
     }
 
     //button click plus answer
@@ -192,7 +190,8 @@ public class GameManager_MathProblem : MonoBehaviour
             playerScore += 10;
             PlayerPrefs.SetInt("Math_Score", playerScore);
             StartCoroutine(TransitionToNextQuestion());
-        } else
+        }
+        else
         {
             Debug.Log("Wrong");
             PlayerPrefs.SetInt("Math_Score", playerScore);

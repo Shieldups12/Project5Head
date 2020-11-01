@@ -48,43 +48,6 @@ public class GameManager_MemoryGame : MonoBehaviour
         currentCorrectAnswer = 0;
         puzzleButtons = new List<Button>();
         puzzleButtonAnswers = new List<ButtonAnswer>();
-        //if (levelCount >= 1 && levelCount <= 6)
-        //{
-        //    gridSize = 3;
-        //    if (levelCount >= 1 && levelCount <= 3)
-        //    {
-        //        correctTileCount = 3;
-        //    }
-        //    else
-        //    {
-        //        correctTileCount = 4;
-        //    }
-        //}
-        //else if (levelCount >= 7 && levelCount <= 12)
-        //{
-        //    gridSize = 4;
-        //    if (levelCount >= 7 && levelCount <= 9)
-        //    {
-        //        correctTileCount = 5;
-        //    }
-        //    else
-        //    {
-        //        correctTileCount = 6;
-        //    }
-        //}
-        //else if (levelCount >= 13 && levelCount <= 18)
-        //{
-        //    gridSize = 5;
-        //    if (levelCount >= 13 && levelCount <= 15)
-        //    {
-        //        correctTileCount = 7;
-        //    }
-        //    else
-        //    {
-        //        correctTileCount = 8;
-        //    }
-        //}
-        //dst
     }
 
     void SetCellSize()
@@ -97,6 +60,10 @@ public class GameManager_MemoryGame : MonoBehaviour
         else if (gridSize == 4)
         {
             gridLayoutGroup.cellSize = new Vector2(200, 200);
+        }
+        else if (gridSize == 5)
+        {
+            gridLayoutGroup.cellSize = new Vector2(160, 160);
         }
         //dst
     }

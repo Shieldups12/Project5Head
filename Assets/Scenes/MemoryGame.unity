@@ -607,7 +607,7 @@ MonoBehaviour:
   levelCount: 1
   correctTileCount: 4
   gridSize: 3
-  timeShowAnswer: 1.5
+  timeShowAnswer: 0.5
 --- !u!114 &1263399616
 MonoBehaviour:
   m_ObjectHideFlags: 0

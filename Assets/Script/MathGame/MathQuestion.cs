@@ -1,6 +1,6 @@
 ﻿[System.Serializable]
 
-public class Question
+public class MathQuestion
 {
     public string mathProblem;
     public bool answerPlus;

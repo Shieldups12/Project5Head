@@ -6,10 +6,10 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public TMP_Text scoreText;
+    public TMP_Text scoreMathText;
 
     void Update()
     {
-        scoreText.text = PlayerPrefs.GetInt("Math_Score").ToString();
+        scoreMathText.text = PlayerPrefs.GetInt("Math_Score").ToString();
     }
 }

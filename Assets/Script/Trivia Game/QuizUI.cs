@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class QuizUI : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private AudioSource questionAudio;
     [SerializeField] private List<Button> options;
     [SerializeField] private Color correctColor, wrongColor, normalColor;
+    [SerializeField] private TMP_Text scoreText;
+    public int playerTriviaScore = 0;
+
+    //timer variable
+    private float timeRemaining = 30f;
+    public Slider sliderRight;
+    public Slider sliderLeft;
 
     private TriviaQuestion triviaQuestion;
     private bool answered;
@@ -26,6 +34,29 @@ public class QuizUI : MonoBehaviour
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
         }
+    }
+
+    void Update()
+    {
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+
+        if (timeRemaining <= 0)
+        {
+            timeRemaining = 0;
+        }
+        else if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+        }
+
+        if (timeRemaining == 0)
+        {
+            PlayerPrefs.DeleteKey("Math_Score");
+            SceneManager.LoadScene(0);
+        }
+
+        scoreText.text = PlayerPrefs.GetInt("Math_Score").ToString();
     }
 
     public void SetTriviaQuestion(TriviaQuestion triviaQuestion)
@@ -103,10 +134,15 @@ public class QuizUI : MonoBehaviour
             if (i)
             {
                 button.image.color = correctColor;
+                Debug.Log("Correct");
+                playerTriviaScore += 10;
+                PlayerPrefs.SetInt("Math_Score", playerTriviaScore);
             }
             else
             {
                 button.image.color = wrongColor;
+                Debug.Log("Wrong");
+                PlayerPrefs.SetInt("Math_Score", playerTriviaScore);
             }
         }
     }

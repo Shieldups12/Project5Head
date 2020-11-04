@@ -9,17 +9,14 @@ using TMPro;
 public class GameManager_MathProblem : MonoBehaviour
 {
     public static GameManager_MathProblem instance;
-    public int playerScore = 0;
+    public int playerMathScore = 0;
 
     public MathQuestion[] mathQuestion;
     private MathQuestion currentQuestion;
     private static List<MathQuestion> unansweredQuestions;
 
-    [SerializeField]
-    private TMP_Text mathProblemText;
-
-    [SerializeField]
-    private float timeBetweenQuestions = 0f;
+    [SerializeField] private TMP_Text mathText;
+    [SerializeField] private float timeBetweenQuestions;
 
     //math problem variable
     int mathSymbol;
@@ -44,7 +41,7 @@ public class GameManager_MathProblem : MonoBehaviour
         CheckMathAnswer();
         DisplayMathQuestion();
 
-        playerScore = PlayerPrefs.GetInt("Math_Score", 0);
+        playerMathScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
 
     //void Awake()
@@ -168,7 +165,7 @@ public class GameManager_MathProblem : MonoBehaviour
     {
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
-        mathProblemText.text = currentQuestion.mathProblem;
+        mathText.text = currentQuestion.mathProblem;
     }
 
     //transition to the next question (0s)
@@ -187,14 +184,14 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerPlus)
         {
             Debug.Log("Correct");
-            playerScore += 10;
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            playerMathScore += 10;
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -205,14 +202,14 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerMinus)
         {
             Debug.Log("Correct");
-            playerScore += 10;
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            playerMathScore += 10;
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -223,14 +220,14 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerTimes)
         {
             Debug.Log("Correct");
-            playerScore += 10;
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            playerMathScore += 10;
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -241,14 +238,14 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerDivide)
         {
             Debug.Log("Correct");
-            playerScore += 10;
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            playerMathScore += 10;
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
-            PlayerPrefs.SetInt("Math_Score", playerScore);
+            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }

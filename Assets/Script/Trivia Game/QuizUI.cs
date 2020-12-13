@@ -52,11 +52,11 @@ public class QuizUI : MonoBehaviour
 
         if (timeRemaining == 0)
         {
-            PlayerPrefs.DeleteKey("Math_Score");
+            PlayerPrefs.DeleteKey("Trivia_Score");
             SceneManager.LoadScene(0);
         }
 
-        scoreText.text = PlayerPrefs.GetInt("Math_Score").ToString();
+        scoreText.text = PlayerPrefs.GetInt("Trivia_Score").ToString();
     }
 
     public void SetTriviaQuestion(TriviaQuestion triviaQuestion)
@@ -86,7 +86,7 @@ public class QuizUI : MonoBehaviour
                 ImageHolder();
                 questionAudio.transform.gameObject.SetActive(true);
                 audioLength = triviaQuestion.questionAudio.length;
-                StartCoroutine(PlayAudio());
+                //StartCoroutine(PlayAudio());
                 break;
         }
         questionText.text = triviaQuestion.questionInfo;
@@ -102,20 +102,20 @@ public class QuizUI : MonoBehaviour
         answered = false;
     }
 
-    IEnumerator PlayAudio()
-    {
-        if(triviaQuestion.questionType == QuestionType.AUDIO)
-        {
-            questionAudio.PlayOneShot(triviaQuestion.questionAudio);
-            yield return new WaitForSeconds(audioLength + 0.5f);
-            StartCoroutine(PlayAudio()); 
-        }
-        else
-        {
-            StopCoroutine(PlayAudio());
-            yield return null;
-        }
-    }
+    //IEnumerator PlayAudio()
+    //{
+    //    if(triviaQuestion.questionType == QuestionType.AUDIO)
+    //    {
+    //        questionAudio.PlayOneShot(triviaQuestion.questionAudio);
+    //        yield return new WaitForSeconds(audioLength + 0.5f);
+    //        StartCoroutine(PlayAudio()); 
+    //    }
+    //    else
+    //    {
+    //        StopCoroutine(PlayAudio());
+    //        yield return null;
+    //    }
+    //}
 
     void ImageHolder()
     {
@@ -136,13 +136,13 @@ public class QuizUI : MonoBehaviour
                 button.image.color = correctColor;
                 Debug.Log("Correct");
                 playerTriviaScore += 10;
-                PlayerPrefs.SetInt("Math_Score", playerTriviaScore);
+                PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
             else
             {
                 button.image.color = wrongColor;
                 Debug.Log("Wrong");
-                PlayerPrefs.SetInt("Math_Score", playerTriviaScore);
+                PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
         }
     }

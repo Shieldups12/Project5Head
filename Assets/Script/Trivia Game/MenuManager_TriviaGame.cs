@@ -7,6 +7,7 @@ public class MenuManager_TriviaGame : MonoBehaviour
 {
     public void BackTrivia()
     {
+        PlayerPrefs.DeleteKey("Trivia_Score");
         SceneManager.LoadScene(0);
     }
 
@@ -16,6 +17,7 @@ public class MenuManager_TriviaGame : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                PlayerPrefs.DeleteKey("Trivia_Score");
                 SceneManager.LoadScene(0);
             }
         }

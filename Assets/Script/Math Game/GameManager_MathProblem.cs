@@ -8,6 +8,8 @@ using TMPro;
 
 public class GameManager_MathProblem : MonoBehaviour
 {
+    public GameObject mathEndScreen;
+
     public static GameManager_MathProblem instance;
     public int playerMathScore = 0;
 
@@ -29,6 +31,15 @@ public class GameManager_MathProblem : MonoBehaviour
     public Slider sliderRight;
     public Slider sliderLeft;
 
+    //endscreen
+    private int totalCorrect = 0;
+    private int totalWrong = 0;
+    [SerializeField] private TMP_Text correctText;
+    [SerializeField] private TMP_Text wrongText;
+    [SerializeField] private TMP_Text totalText;
+    private string scoreResult;
+    [SerializeField] private TMP_Text scoreText;
+
     void Start()
     {
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
@@ -40,6 +51,7 @@ public class GameManager_MathProblem : MonoBehaviour
         SetMathQuestion();
         CheckMathAnswer();
         DisplayMathQuestion();
+        FinalMathScore();
 
         playerMathScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
@@ -80,8 +92,9 @@ public class GameManager_MathProblem : MonoBehaviour
 
         if (timeRemaining == 0)
         {
-            PlayerPrefs.DeleteKey("Math_Score");
-            SceneManager.LoadScene(0);
+            mathEndScreen.SetActive(true);
+            //PlayerPrefs.DeleteKey("Math_Score");
+            //SceneManager.LoadScene(0);
         }
     }
 
@@ -185,12 +198,14 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            totalCorrect++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            totalWrong++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -203,12 +218,14 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            totalCorrect++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            totalWrong++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -221,12 +238,14 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            totalCorrect++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            totalWrong++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -239,14 +258,41 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            totalCorrect++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            totalWrong++;
             PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
+    }
+    
+    public void FinalMathScore()
+    {
+        if (playerMathScore >= 180)
+        {
+            scoreResult = "A+";
+        }
+        if (playerMathScore >= 150)
+        {
+            scoreResult = "A";
+        }
+        else if (playerMathScore >=120)
+        {
+            scoreResult = "B";
+        }
+        else
+        {
+            scoreResult = "C";
+        }
+        scoreText.text = scoreResult;
+
+        correctText.text = totalCorrect.ToString();
+        wrongText.text = totalWrong.ToString();
+        totalText.text = playerMathScore.ToString();
     }
 }

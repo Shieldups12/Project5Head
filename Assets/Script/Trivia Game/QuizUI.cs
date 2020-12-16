@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class QuizUI : MonoBehaviour
 {
+    public GameObject triviaEndScreen;
+
     [SerializeField] private GameManager_TriviaGame gameManager_TriviaGame;
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private Image questionImage;
@@ -26,6 +28,15 @@ public class QuizUI : MonoBehaviour
     private bool answered;
     private float audioLength;
 
+    //endscreen
+    private int totalCorrect = 0;
+    private int totalWrong = 0;
+    [SerializeField] private TMP_Text correctText;
+    [SerializeField] private TMP_Text wrongText;
+    [SerializeField] private TMP_Text totalText;
+    private string scoreResult;
+    [SerializeField] private TMP_Text finalscoreText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +44,7 @@ public class QuizUI : MonoBehaviour
         {
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
+            FinalTriviaScore();
         }
     }
 
@@ -52,8 +64,9 @@ public class QuizUI : MonoBehaviour
 
         if (timeRemaining == 0)
         {
-            PlayerPrefs.DeleteKey("Trivia_Score");
-            SceneManager.LoadScene(0);
+            triviaEndScreen.SetActive(true);
+            //PlayerPrefs.DeleteKey("Trivia_Score");
+            //SceneManager.LoadScene(0);
         }
 
         scoreText.text = PlayerPrefs.GetInt("Trivia_Score").ToString();
@@ -136,14 +149,41 @@ public class QuizUI : MonoBehaviour
                 button.image.color = correctColor;
                 Debug.Log("Correct");
                 playerTriviaScore += 10;
+                totalCorrect++;
                 PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
             else
             {
                 button.image.color = wrongColor;
                 Debug.Log("Wrong");
+                totalWrong++;
                 PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
         }
+    }
+
+    public void FinalTriviaScore()
+    {
+        if (playerTriviaScore >= 150)
+        {
+            scoreResult = "A+";
+        }
+        if (playerTriviaScore >= 120)
+        {
+            scoreResult = "A";
+        }
+        else if (playerTriviaScore >= 90)
+        {
+            scoreResult = "B";
+        }
+        else
+        {
+            scoreResult = "C";
+        }
+        finalscoreText.text = scoreResult;
+
+        correctText.text = totalCorrect.ToString();
+        wrongText.text = totalWrong.ToString();
+        totalText.text = playerTriviaScore.ToString();
     }
 }

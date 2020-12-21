@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,20 +10,36 @@ public class GameManager_MemoryGame : MonoBehaviour
     public List<ButtonAnswer> puzzleButtonAnswers;
     public AddButtons addButton;
     public GridLayoutGroup gridLayoutGroup;
+    public TMP_Text levelText;
+    public TMP_Text correctTileCountText;
+    public TMP_Text scoreText;
+
     [SerializeField] private int levelCount;
     [SerializeField] private int correctTileCount;
     [SerializeField] private int gridSize;
     [SerializeField] private float timeShowAnswer;
+    [SerializeField] private int playerMemoryScore;
+    
+    private int totalCorrect = 0;
+    private int totalWrong = 0;
     private int currentCorrectAnswer;
-
+    private int currentWrongAnswer;
+    
     void Start()
     {
         SetLevel();
         SetCellSize();
         GetButtons();
         RandomizeCorrectTile();
+        SetLevelUI();
         ShowCorrectTileColor();
         StartCoroutine(RevertTileColor());
+    }
+
+    void SetLevelUI()
+    {
+        levelText.text = "Lv. " + levelCount.ToString();
+        correctTileCountText.text = currentCorrectAnswer.ToString() + " / " + correctTileCount.ToString();
     }
 
     void SetLevel()
@@ -44,8 +61,16 @@ public class GameManager_MemoryGame : MonoBehaviour
         {
             correctTileCount = levelCount / 3 + 3;
         }
+
+        if(levelCount >= 18)
+        {
+            gridSize = 5;
+            correctTileCount = 9;
+        }
+
         addButton.GenerateGrid(gridSize * gridSize);
         currentCorrectAnswer = 0;
+        currentWrongAnswer = 0;
         puzzleButtons = new List<Button>();
         puzzleButtonAnswers = new List<ButtonAnswer>();
     }
@@ -156,6 +181,20 @@ public class GameManager_MemoryGame : MonoBehaviour
         if(correctTileCount == currentCorrectAnswer)
         {
             levelCount++;
+            playerMemoryScore += 10;
+
+            scoreText.text = playerMemoryScore.ToString();
+
+            Debug.Log("Destroy");
+            addButton.DestroyGrid();
+            Start();
+        }
+    }
+
+    void CheckLevelFailed()
+    {
+        if(currentWrongAnswer >= 3)
+        {
             Debug.Log("Destroy");
             addButton.DestroyGrid();
             Start();
@@ -168,20 +207,29 @@ public class GameManager_MemoryGame : MonoBehaviour
         if (isCorrectAnswer)
         {
             currentCorrectAnswer++;
+            totalCorrect++;
+
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.green;
             colors.pressedColor = Color.green;
             colors.disabledColor = Color.green;
             currentButton.GetComponent<Button>().colors = colors;
+
+            correctTileCountText.text = currentCorrectAnswer.ToString() + " / " + correctTileCount.ToString();
+
             CheckLevelComplete();
         }
         else
         {
+            totalWrong++;
+            currentWrongAnswer++;
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.red;
             colors.pressedColor = Color.red;
             colors.disabledColor = Color.red;
             currentButton.GetComponent<Button>().colors = colors;
+
+            CheckLevelFailed();
         }
     }
 }

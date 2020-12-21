@@ -44,8 +44,8 @@ public class QuizUI : MonoBehaviour
         {
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
-            FinalTriviaScore();
         }
+        
     }
 
     void Update()
@@ -64,7 +64,11 @@ public class QuizUI : MonoBehaviour
 
         if (timeRemaining == 0)
         {
-            triviaEndScreen.SetActive(true);
+            if(triviaEndScreen.activeSelf == false)
+            {
+                FinalTriviaScore();
+                triviaEndScreen.SetActive(true);
+            }
             //PlayerPrefs.DeleteKey("Trivia_Score");
             //SceneManager.LoadScene(0);
         }
@@ -168,7 +172,7 @@ public class QuizUI : MonoBehaviour
         {
             scoreResult = "A+";
         }
-        if (playerTriviaScore >= 120)
+        else if (playerTriviaScore >= 120)
         {
             scoreResult = "A";
         }

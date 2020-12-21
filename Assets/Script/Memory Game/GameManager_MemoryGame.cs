@@ -80,15 +80,15 @@ public class GameManager_MemoryGame : MonoBehaviour
         Debug.Log(Screen.currentResolution);
         if (gridSize == 3)
         {
-            gridLayoutGroup.cellSize = new Vector2(250, 250);
+            gridLayoutGroup.cellSize = new Vector2(255, 255);
         }
         else if (gridSize == 4)
         {
-            gridLayoutGroup.cellSize = new Vector2(200, 200);
+            gridLayoutGroup.cellSize = new Vector2(185, 185);
         }
         else if (gridSize == 5)
         {
-            gridLayoutGroup.cellSize = new Vector2(160, 160);
+            gridLayoutGroup.cellSize = new Vector2(145, 145);
         }
         //dst
     }

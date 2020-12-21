@@ -11,7 +11,8 @@ public class GameManager_MathProblem : MonoBehaviour
     public GameObject mathEndScreen;
 
     public static GameManager_MathProblem instance;
-    public int playerMathScore = 0;
+    [SerializeField] private int playerMathScore = 0;
+    [SerializeField] private TMP_Text scoreText;
 
     public MathQuestion[] mathQuestion;
     private MathQuestion currentQuestion;
@@ -38,7 +39,11 @@ public class GameManager_MathProblem : MonoBehaviour
     [SerializeField] private TMP_Text wrongText;
     [SerializeField] private TMP_Text totalText;
     private string scoreResult;
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreResultText;
+    [SerializeField] private TMP_Text recordFirstPlaceText;
+    [SerializeField] private TMP_Text recordSecondPlaceText;
+    [SerializeField] private TMP_Text recordThirdPlaceText;
+    [SerializeField] private TMP_Text recordFourthPlaceText;
 
     void Start()
     {
@@ -52,8 +57,6 @@ public class GameManager_MathProblem : MonoBehaviour
         CheckMathAnswer();
         DisplayMathQuestion();
         FinalMathScore();
-
-        playerMathScore = PlayerPrefs.GetInt("Math_Score", 0);
     }
 
     //void Awake()
@@ -92,10 +95,76 @@ public class GameManager_MathProblem : MonoBehaviour
 
         if (timeRemaining == 0)
         {
-            mathEndScreen.SetActive(true);
-            //PlayerPrefs.DeleteKey("Math_Score");
-            //SceneManager.LoadScene(0);
+            if(mathEndScreen.activeSelf == false)
+            {
+                ShowRecord();
+                mathEndScreen.SetActive(true);
+            }
         }
+    }
+
+    void ShowRecord()
+    {
+        //Save Current Session Score
+        int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
+        PlayerPrefs.SetInt("mathProblemRecord_" + recordCount.ToString(), playerMathScore);
+        recordCount++;
+        PlayerPrefs.SetInt("mathProblemRecordCount", recordCount);
+        //Load All Score
+        List<int> recordList = new List<int>();
+        for(int i=0; i<recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("mathProblemRecord_" + i.ToString()));
+        }
+        //Display Top 4 Score
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if(recordList.Count >= 4)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text =  recordList[2].ToString();
+                recordFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordFirstPlaceText.text = "";
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordFirstPlaceText.text = "";
+            recordSecondPlaceText.text = "";
+            recordThirdPlaceText.text = "";
+            recordFourthPlaceText.text = "";
+        }
+        
     }
 
     void RandomizeMathQuestion()
@@ -179,6 +248,7 @@ public class GameManager_MathProblem : MonoBehaviour
         currentQuestion.mathProblem = firstNumber.ToString() + " ▢ " + secondNumber.ToString() + " = " + System.Convert.ToInt32(answerNumber).ToString();
 
         mathText.text = currentQuestion.mathProblem;
+        scoreText.text = playerMathScore.ToString();
     }
 
     //transition to the next question (0s)
@@ -188,7 +258,8 @@ public class GameManager_MathProblem : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenQuestions);
 
-        Invoke("Start", 0f);
+        //Invoke("Start", 0f);
+        Start();
     }
 
     //button click plus answer
@@ -199,14 +270,12 @@ public class GameManager_MathProblem : MonoBehaviour
             Debug.Log("Correct");
             playerMathScore += 10;
             totalCorrect++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
             totalWrong++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -219,14 +288,12 @@ public class GameManager_MathProblem : MonoBehaviour
             Debug.Log("Correct");
             playerMathScore += 10;
             totalCorrect++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
             totalWrong++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -239,14 +306,12 @@ public class GameManager_MathProblem : MonoBehaviour
             Debug.Log("Correct");
             playerMathScore += 10;
             totalCorrect++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
             totalWrong++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -259,14 +324,12 @@ public class GameManager_MathProblem : MonoBehaviour
             Debug.Log("Correct");
             playerMathScore += 10;
             totalCorrect++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
             totalWrong++;
-            PlayerPrefs.SetInt("Math_Score", playerMathScore);
             StartCoroutine(TransitionToNextQuestion());
         }
     }
@@ -277,7 +340,7 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             scoreResult = "A+";
         }
-        if (playerMathScore >= 150)
+        else if (playerMathScore >= 150)
         {
             scoreResult = "A";
         }
@@ -289,7 +352,7 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             scoreResult = "C";
         }
-        scoreText.text = scoreResult;
+        scoreResultText.text = scoreResult;
 
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();

@@ -11,6 +11,16 @@ public class MenuManager_MainMenu : MonoBehaviour
     [SerializeField] private TMP_Text recordMathThirdPlaceText;
     [SerializeField] private TMP_Text recordMathFourthPlaceText;
 
+    [SerializeField] private TMP_Text recordMemoryFirstPlaceText;
+    [SerializeField] private TMP_Text recordMemorySecondPlaceText;
+    [SerializeField] private TMP_Text recordMemoryThirdPlaceText;
+    [SerializeField] private TMP_Text recordMemoryFourthPlaceText;
+
+    [SerializeField] private TMP_Text recordTriviaFirstPlaceText;
+    [SerializeField] private TMP_Text recordTriviaSecondPlaceText;
+    [SerializeField] private TMP_Text recordTriviaThirdPlaceText;
+    [SerializeField] private TMP_Text recordTriviaFourthPlaceText;
+
     public void PlayMath()
     {
         SceneManager.LoadScene(1);
@@ -35,11 +45,11 @@ public class MenuManager_MainMenu : MonoBehaviour
 
     void LoadMathRecord()
     {
-        int recordCount = PlayerPrefs.GetInt("mathGameRecordCount", 0);
+        int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
         List<int> recordList = new List<int>();
         for (int i = 0; i < recordCount; i++)
         {
-            recordList.Add(PlayerPrefs.GetInt("mathGameRecord_" + i.ToString()));
+            recordList.Add(PlayerPrefs.GetInt("mathProblemRecord_" + i.ToString()));
         }
         if (recordList.Count > 0)
         {
@@ -92,12 +102,116 @@ public class MenuManager_MainMenu : MonoBehaviour
 
     void LoadMemoryRecord()
     {
-
+        int recordCount = PlayerPrefs.GetInt("memoryGameRecordCount", 0);
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("memoryGameRecord_" + i.ToString()));
+        }
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordMemoryFirstPlaceText.text = recordList[0].ToString();
+                recordMemorySecondPlaceText.text = recordList[1].ToString();
+                recordMemoryThirdPlaceText.text = recordList[2].ToString();
+                recordMemoryFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordMemoryFirstPlaceText.text = recordList[0].ToString();
+                recordMemorySecondPlaceText.text = recordList[1].ToString();
+                recordMemoryThirdPlaceText.text = recordList[2].ToString();
+                recordMemoryFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordMemoryFirstPlaceText.text = recordList[0].ToString();
+                recordMemorySecondPlaceText.text = recordList[1].ToString();
+                recordMemoryThirdPlaceText.text = "";
+                recordMemoryFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordMemoryFirstPlaceText.text = recordList[0].ToString();
+                recordMemorySecondPlaceText.text = "";
+                recordMemoryThirdPlaceText.text = "";
+                recordMemoryFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordMemoryFirstPlaceText.text = "";
+                recordMemorySecondPlaceText.text = "";
+                recordMemoryThirdPlaceText.text = "";
+                recordMemoryFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordMemoryFirstPlaceText.text = "";
+            recordMemorySecondPlaceText.text = "";
+            recordMemoryThirdPlaceText.text = "";
+            recordMemoryFourthPlaceText.text = "";
+        }
     }
 
     void LoadTriviaRecord()
     {
-
+        int recordCount = PlayerPrefs.GetInt("triviaProblemRecordCount", 0);
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("triviaProblemRecord_" + i.ToString()));
+        }
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordTriviaFirstPlaceText.text = recordList[0].ToString();
+                recordTriviaSecondPlaceText.text = recordList[1].ToString();
+                recordTriviaThirdPlaceText.text = recordList[2].ToString();
+                recordTriviaFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordTriviaFirstPlaceText.text = recordList[0].ToString();
+                recordTriviaSecondPlaceText.text = recordList[1].ToString();
+                recordTriviaThirdPlaceText.text = recordList[2].ToString();
+                recordTriviaFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordTriviaFirstPlaceText.text = recordList[0].ToString();
+                recordTriviaSecondPlaceText.text = recordList[1].ToString();
+                recordTriviaThirdPlaceText.text = "";
+                recordTriviaFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordTriviaFirstPlaceText.text = recordList[0].ToString();
+                recordTriviaSecondPlaceText.text = "";
+                recordTriviaThirdPlaceText.text = "";
+                recordTriviaFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordTriviaFirstPlaceText.text = "";
+                recordTriviaSecondPlaceText.text = "";
+                recordTriviaThirdPlaceText.text = "";
+                recordTriviaFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordTriviaFirstPlaceText.text = "";
+            recordTriviaSecondPlaceText.text = "";
+            recordTriviaThirdPlaceText.text = "";
+            recordTriviaFourthPlaceText.text = "";
+        }
     }
 
     public void QuitGame()

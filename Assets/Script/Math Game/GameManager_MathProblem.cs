@@ -9,6 +9,7 @@ using TMPro;
 public class GameManager_MathProblem : MonoBehaviour
 {
     public GameObject mathEndScreen;
+    public GameObject mathPauseScreen;
 
     public static GameManager_MathProblem instance;
     [SerializeField] private int playerMathScore = 0;
@@ -44,6 +45,7 @@ public class GameManager_MathProblem : MonoBehaviour
     [SerializeField] private TMP_Text recordSecondPlaceText;
     [SerializeField] private TMP_Text recordThirdPlaceText;
     [SerializeField] private TMP_Text recordFourthPlaceText;
+    public Slider sliderCorrectWrongRatio;
 
     void Start()
     {
@@ -81,16 +83,19 @@ public class GameManager_MathProblem : MonoBehaviour
     //timer countdown
     void Update()
     {
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
+        if(mathPauseScreen.activeSelf == false)
+        {
+            sliderRight.value = timeRemaining;
+            sliderLeft.value = timeRemaining;
 
-        if (timeRemaining <= 0)
-        {
-            timeRemaining = 0;
-        }
-        else if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+            {
+                timeRemaining = 0;
+            }
+            else if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
         }
 
         if (timeRemaining == 0)
@@ -251,6 +256,20 @@ public class GameManager_MathProblem : MonoBehaviour
         scoreText.text = playerMathScore.ToString();
     }
 
+    void AddBonusTime()
+    {
+        if(timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+    }
+
     //transition to the next question (0s)
     IEnumerator TransitionToNextQuestion()
     {
@@ -269,11 +288,11 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
-            if (totalCorrect % 4 == 0 && totalCorrect > 0)
-            {
-                timeRemaining++;
-            }
             totalCorrect++;
+            if (totalCorrect % 5 == 0 && totalCorrect > 0)
+            {
+                AddBonusTime();
+            }
             StartCoroutine(TransitionToNextQuestion());
         }
         else
@@ -292,11 +311,11 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
-            if (totalCorrect % 4 == 0 && totalCorrect > 0)
-            {
-                timeRemaining++;
-            }
             totalCorrect++;
+            if (totalCorrect % 5 == 0 && totalCorrect > 0)
+            {
+                AddBonusTime();
+            }
             StartCoroutine(TransitionToNextQuestion());
         }
         else
@@ -315,11 +334,11 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
-            if (totalCorrect % 4 == 0 && totalCorrect > 0)
-            {
-                timeRemaining++;
-            }
             totalCorrect++;
+            if (totalCorrect % 5 == 0 && totalCorrect > 0)
+            {
+                AddBonusTime();
+            }
             StartCoroutine(TransitionToNextQuestion());
         }
         else
@@ -338,11 +357,11 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
-            if (totalCorrect % 4 == 0 && totalCorrect > 0)
-            {
-                timeRemaining++;
-            }
             totalCorrect++;
+            if (totalCorrect % 5 == 0 && totalCorrect > 0)
+            {
+                AddBonusTime();
+            }
             StartCoroutine(TransitionToNextQuestion());
         }
         else
@@ -373,7 +392,9 @@ public class GameManager_MathProblem : MonoBehaviour
             scoreResult = "C";
         }
         scoreResultText.text = scoreResult;
-
+        int totalAnsweredQuestion = totalCorrect + totalWrong;
+        float correctWrongRatio = ((float)totalCorrect / (float)totalAnsweredQuestion) * 100f;
+        sliderCorrectWrongRatio.value = correctWrongRatio;
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();
         totalText.text = playerMathScore.ToString();

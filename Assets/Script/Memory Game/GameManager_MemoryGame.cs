@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager_MemoryGame : MonoBehaviour
 {
+    public GameObject memoryEndScreen;
+    public GameObject memoryPauseScreen;
+
     public List<Button> puzzleButtons;
     public List<ButtonAnswer> puzzleButtonAnswers;
     public AddButtons addButton;
@@ -13,6 +16,10 @@ public class GameManager_MemoryGame : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text correctTileCountText;
     public TMP_Text scoreText;
+
+    private float timeRemaining = 30f;
+    public Slider sliderRight;
+    public Slider sliderLeft;
 
     [SerializeField] private int levelCount;
     [SerializeField] private int correctTileCount;
@@ -24,7 +31,16 @@ public class GameManager_MemoryGame : MonoBehaviour
     private int totalWrong = 0;
     private int currentCorrectAnswer;
     private int currentWrongAnswer;
-    
+    [SerializeField] private TMP_Text correctText;
+    [SerializeField] private TMP_Text wrongText;
+    [SerializeField] private TMP_Text totalText;
+    private string scoreResult;
+    [SerializeField] private TMP_Text scoreResultText;
+    [SerializeField] private TMP_Text recordFirstPlaceText;
+    [SerializeField] private TMP_Text recordSecondPlaceText;
+    [SerializeField] private TMP_Text recordThirdPlaceText;
+    [SerializeField] private TMP_Text recordFourthPlaceText;
+
     void Start()
     {
         SetLevel();
@@ -34,6 +50,108 @@ public class GameManager_MemoryGame : MonoBehaviour
         SetLevelUI();
         ShowCorrectTileColor();
         StartCoroutine(RevertTileColor());
+    }
+
+    void Update()
+    {
+        //if (memoryPauseScreen.activeSelf == false)
+        //{
+        //    sliderRight.value = timeRemaining;
+        //    sliderLeft.value = timeRemaining;
+
+        //    if (timeRemaining <= 0)
+        //    {
+        //        timeRemaining = 0;
+        //    }
+        //    else if (timeRemaining > 0)
+        //    {
+        //        timeRemaining -= Time.deltaTime;
+        //    }
+        //}
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+
+        if (timeRemaining <= 0)
+        {
+            timeRemaining = 0;
+        }
+        else if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+        }
+
+        if (timeRemaining == 0)
+        {
+            if (memoryEndScreen.activeSelf == false)
+            {
+                FinalMemoryScore();
+                ShowRecord();
+                memoryEndScreen.SetActive(true);
+            }
+        }
+    }
+
+    void ShowRecord()
+    {
+        //Save Current Session Score
+        int recordCount = PlayerPrefs.GetInt("memoryGameRecordCount", 0);
+        PlayerPrefs.SetInt("memoryGameRecord_" + recordCount.ToString(), playerMemoryScore);
+        recordCount++;
+        PlayerPrefs.SetInt("memoryGameRecordCount", recordCount);
+        //Load All Score
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("memoryGameRecord_" + i.ToString()));
+        }
+        //Display Top 4 Score
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordFirstPlaceText.text = "";
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordFirstPlaceText.text = "";
+            recordSecondPlaceText.text = "";
+            recordThirdPlaceText.text = "";
+            recordFourthPlaceText.text = "";
+        }
     }
 
     void SetLevelUI()
@@ -181,6 +299,7 @@ public class GameManager_MemoryGame : MonoBehaviour
         if(correctTileCount == currentCorrectAnswer)
         {
             levelCount++;
+            totalCorrect++;
             playerMemoryScore += 10;
 
             scoreText.text = playerMemoryScore.ToString();
@@ -195,6 +314,7 @@ public class GameManager_MemoryGame : MonoBehaviour
     {
         if(currentWrongAnswer >= 3)
         {
+            totalWrong++;
             Debug.Log("Destroy");
             addButton.DestroyGrid();
             Start();
@@ -207,7 +327,7 @@ public class GameManager_MemoryGame : MonoBehaviour
         if (isCorrectAnswer)
         {
             currentCorrectAnswer++;
-            totalCorrect++;
+            
 
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.green;
@@ -221,7 +341,7 @@ public class GameManager_MemoryGame : MonoBehaviour
         }
         else
         {
-            totalWrong++;
+            
             currentWrongAnswer++;
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.red;
@@ -231,5 +351,28 @@ public class GameManager_MemoryGame : MonoBehaviour
 
             CheckLevelFailed();
         }
+    }
+    public void FinalMemoryScore()
+    {
+        if (playerMemoryScore >= 180)
+        {
+            scoreResult = "A+";
+        }
+        else if (playerMemoryScore >= 150)
+        {
+            scoreResult = "A";
+        }
+        else if (playerMemoryScore >= 120)
+        {
+            scoreResult = "B";
+        }
+        else
+        {
+            scoreResult = "C";
+        }
+        scoreResultText.text = scoreResult;
+        correctText.text = totalCorrect.ToString();
+        wrongText.text = totalWrong.ToString();
+        totalText.text = playerMemoryScore.ToString();
     }
 }

@@ -51,7 +51,7 @@ public class QuizUI : MonoBehaviour
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
         }
-        FinalTriviaScore();
+        
     }
 
     void Update()
@@ -72,6 +72,7 @@ public class QuizUI : MonoBehaviour
         {
             if(triviaEndScreen.activeSelf == false)
             {
+                FinalTriviaScore();
                 ShowRecord();
                 triviaEndScreen.SetActive(true);
             }
@@ -231,7 +232,6 @@ public class QuizUI : MonoBehaviour
             recordThirdPlaceText.text = "";
             recordFourthPlaceText.text = "";
         }
-
     }
 
     public void FinalTriviaScore()

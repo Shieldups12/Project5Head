@@ -5,9 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager_MathGame : MonoBehaviour
 {
+    public GameObject mathPause;
+
     public void BackMath()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseMath()
+    {
+        mathPause.SetActive(true);
+    }
+
+    public void ContinueMath()
+    {
+        mathPause.SetActive(false);
     }
 
     public void DebugResetAllRecords()

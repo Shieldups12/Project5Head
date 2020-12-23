@@ -269,12 +269,17 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            if (totalCorrect % 4 == 0 && totalCorrect > 0)
+            {
+                timeRemaining++;
+            }
             totalCorrect++;
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -287,12 +292,17 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            if (totalCorrect % 4 == 0 && totalCorrect > 0)
+            {
+                timeRemaining++;
+            }
             totalCorrect++;
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -305,12 +315,17 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            if (totalCorrect % 4 == 0 && totalCorrect > 0)
+            {
+                timeRemaining++;
+            }
             totalCorrect++;
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
         }
@@ -323,12 +338,17 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             Debug.Log("Correct");
             playerMathScore += 10;
+            if (totalCorrect % 4 == 0 && totalCorrect > 0)
+            {
+                timeRemaining++;
+            }
             totalCorrect++;
             StartCoroutine(TransitionToNextQuestion());
         }
         else
         {
             Debug.Log("Wrong");
+            timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
         }

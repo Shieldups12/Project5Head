@@ -19,6 +19,12 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     public int playerTriviaScore = 0;
 
+    [SerializeField] private TMP_Text scoreResultText;
+    [SerializeField] private TMP_Text recordFirstPlaceText;
+    [SerializeField] private TMP_Text recordSecondPlaceText;
+    [SerializeField] private TMP_Text recordThirdPlaceText;
+    [SerializeField] private TMP_Text recordFourthPlaceText;
+
     //timer variable
     private float timeRemaining = 30f;
     public Slider sliderRight;
@@ -45,7 +51,7 @@ public class QuizUI : MonoBehaviour
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
         }
-        
+        FinalTriviaScore();
     }
 
     void Update()
@@ -66,11 +72,9 @@ public class QuizUI : MonoBehaviour
         {
             if(triviaEndScreen.activeSelf == false)
             {
-                FinalTriviaScore();
+                ShowRecord();
                 triviaEndScreen.SetActive(true);
             }
-            //PlayerPrefs.DeleteKey("Trivia_Score");
-            //SceneManager.LoadScene(0);
         }
 
         scoreText.text = PlayerPrefs.GetInt("Trivia_Score").ToString();
@@ -166,8 +170,73 @@ public class QuizUI : MonoBehaviour
         }
     }
 
+    void ShowRecord()
+    {
+        //Save Current Session Score
+        int recordCount = PlayerPrefs.GetInt("triviaProblemRecordCount", 0);
+        PlayerPrefs.SetInt("triviaProblemRecord_" + recordCount.ToString(), playerTriviaScore);
+        recordCount++;
+        PlayerPrefs.SetInt("triviaProblemRecordCount", recordCount);
+        //Load All Score
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("triviaProblemRecord_" + i.ToString()));
+        }
+        //Display Top 4 Score
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordFirstPlaceText.text = "";
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordFirstPlaceText.text = "";
+            recordSecondPlaceText.text = "";
+            recordThirdPlaceText.text = "";
+            recordFourthPlaceText.text = "";
+        }
+
+    }
+
     public void FinalTriviaScore()
     {
+        Debug.Log("Hello");
         if (playerTriviaScore >= 150)
         {
             scoreResult = "A+";

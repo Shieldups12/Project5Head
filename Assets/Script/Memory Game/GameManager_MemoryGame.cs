@@ -40,6 +40,7 @@ public class GameManager_MemoryGame : MonoBehaviour
     [SerializeField] private TMP_Text recordSecondPlaceText;
     [SerializeField] private TMP_Text recordThirdPlaceText;
     [SerializeField] private TMP_Text recordFourthPlaceText;
+    [SerializeField] private Slider sliderCorrectWrongRatio;
 
     void Start()
     {
@@ -302,6 +303,11 @@ public class GameManager_MemoryGame : MonoBehaviour
             totalCorrect++;
             playerMemoryScore += 10;
 
+            if (totalCorrect % 5 == 0 && totalCorrect > 0)
+            {
+                AddBonusTime();
+            }
+
             scoreText.text = playerMemoryScore.ToString();
 
             Debug.Log("Destroy");
@@ -315,10 +321,25 @@ public class GameManager_MemoryGame : MonoBehaviour
         if(currentWrongAnswer >= 3)
         {
             totalWrong++;
+            timeRemaining--;
             Debug.Log("Destroy");
             addButton.DestroyGrid();
             Start();
         }
+    }
+    
+    void AddBonusTime()
+    {
+        if (timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
     }
 
     void UserSelectTile(bool isCorrectAnswer, Button currentButton)
@@ -328,7 +349,6 @@ public class GameManager_MemoryGame : MonoBehaviour
         {
             currentCorrectAnswer++;
             
-
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.green;
             colors.pressedColor = Color.green;
@@ -341,7 +361,6 @@ public class GameManager_MemoryGame : MonoBehaviour
         }
         else
         {
-            
             currentWrongAnswer++;
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.red;
@@ -352,6 +371,7 @@ public class GameManager_MemoryGame : MonoBehaviour
             CheckLevelFailed();
         }
     }
+
     public void FinalMemoryScore()
     {
         if (playerMemoryScore >= 180)
@@ -371,6 +391,9 @@ public class GameManager_MemoryGame : MonoBehaviour
             scoreResult = "C";
         }
         scoreResultText.text = scoreResult;
+        int totalAnsweredQuestion = totalCorrect + totalWrong;
+        float correctWrongRatio = ((float)totalCorrect / (float)totalAnsweredQuestion) * 100f;
+        sliderCorrectWrongRatio.value = correctWrongRatio;
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();
         totalText.text = playerMemoryScore.ToString();

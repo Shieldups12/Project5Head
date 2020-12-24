@@ -24,6 +24,7 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private TMP_Text recordSecondPlaceText;
     [SerializeField] private TMP_Text recordThirdPlaceText;
     [SerializeField] private TMP_Text recordFourthPlaceText;
+    [SerializeField] private Slider sliderCorrectWrongRatio;
 
     //timer variable
     private float timeRemaining = 30f;
@@ -147,6 +148,20 @@ public class QuizUI : MonoBehaviour
         questionAudio.transform.gameObject.SetActive(false);
     }
 
+    void AddBonusTime()
+    {
+        if (timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+    }
+
     private void OnClick(Button button)
     {
         if (!answered)
@@ -159,6 +174,10 @@ public class QuizUI : MonoBehaviour
                 Debug.Log("Correct");
                 playerTriviaScore += 10;
                 totalCorrect++;
+                if (totalCorrect % 5 == 0 && totalCorrect > 0)
+                {
+                    AddBonusTime();
+                }
                 PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
             else
@@ -166,6 +185,7 @@ public class QuizUI : MonoBehaviour
                 button.image.color = wrongColor;
                 Debug.Log("Wrong");
                 totalWrong++;
+                timeRemaining--;
                 PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
         }
@@ -254,7 +274,9 @@ public class QuizUI : MonoBehaviour
             scoreResult = "C";
         }
         finalscoreText.text = scoreResult;
-
+        int totalAnsweredQuestion = totalCorrect + totalWrong;
+        float correctWrongRatio = ((float)totalCorrect / (float)totalAnsweredQuestion) * 100f;
+        sliderCorrectWrongRatio.value = correctWrongRatio;
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();
         totalText.text = playerTriviaScore.ToString();

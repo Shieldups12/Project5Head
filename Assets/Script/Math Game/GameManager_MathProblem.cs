@@ -45,7 +45,7 @@ public class GameManager_MathProblem : MonoBehaviour
     [SerializeField] private TMP_Text recordSecondPlaceText;
     [SerializeField] private TMP_Text recordThirdPlaceText;
     [SerializeField] private TMP_Text recordFourthPlaceText;
-    public Slider sliderCorrectWrongRatio;
+    [SerializeField] private Slider sliderCorrectWrongRatio;
 
     void Start()
     {

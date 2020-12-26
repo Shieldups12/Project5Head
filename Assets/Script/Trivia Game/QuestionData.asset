@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestionData
   m_EditorClassIdentifier: 
   triviaQuestions:
-  - questionInfo: Pempek merupakan makanan daerah khas
+  - questionInfo: Pempek makanan daerah ...
     questionType: 0
     questionImage: {fileID: 0}
     questionAudio: {fileID: 0}
@@ -24,8 +24,7 @@ MonoBehaviour:
     - Jakarta
     - Sumatera Barat
     correctAns: Palembang
-  - questionInfo: Nama provinsi yang dulunya merupakan bagian dari Indonesia dan
-      sekarang telah menjadi negaranya sendiri adalah
+  - questionInfo: Provinsi yang sudah menjadi negara sendiri
     questionType: 0
     questionImage: {fileID: 0}
     questionAudio: {fileID: 0}
@@ -36,7 +35,7 @@ MonoBehaviour:
     - Timor-Leste
     - Timor-Timur
     correctAns: Timor-Timur
-  - questionInfo: Teluk Belanga merupakan nama baju tradisional daerah
+  - questionInfo: Teluk Belanga baju tradisional daerah ...
     questionType: 0
     questionImage: {fileID: 0}
     questionAudio: {fileID: 0}
@@ -47,7 +46,7 @@ MonoBehaviour:
     - Aceh
     - Yogyakarta
     correctAns: Kepulauan Riau
-  - questionInfo: Pada tahun 1976, yang bukan merupakan provinsi di Indonesia adalah
+  - questionInfo: Tahun 1976, yang bukan merupakan provinsi Indonesia
     questionType: 0
     questionImage: {fileID: 0}
     questionAudio: {fileID: 0}
@@ -58,7 +57,7 @@ MonoBehaviour:
     - Jakarta
     - Kepulauan Riau
     correctAns: Kepulauan Riau
-  - questionInfo: Monas berlokasi di
+  - questionInfo: Lokasi Monas
     questionType: 0
     questionImage: {fileID: 0}
     questionAudio: {fileID: 0}
@@ -69,3 +68,168 @@ MonoBehaviour:
     - Bekasi
     - Aceh
     correctAns: Jakarta
+  - questionInfo: Tanggal kemerdekaan Indonesia
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - 17 Agustus
+    - 17 Oktober
+    - 28 Oktober
+    - 28 Agustus
+    correctAns: 17 Agustus
+  - questionInfo: Isi sumpah pemuda, kecuali ...
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Menjunjung bahasa persatuan, bahasa Indonesia
+    - Menjunjung satu Tuhan Yang Maha Esa
+    - Mengaku bertumpah darah yang satu, tanah air Indonesia
+    - Mengaku berbangsa yang satu, bangsa Indoensia
+    correctAns: Menjunjung satu Tuhan Yang Maha Esa
+  - questionInfo: Presiden Bapak Teknologi Indonesia
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Abdurrahman Wahid
+    - Sukarno
+    - B.J Habibie
+    - Suharto
+    correctAns: B.J Habibie
+  - questionInfo: Satu-satunya Presiden wanita Indonesia
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Sukarni
+    - Megawati
+    - Kartini
+    - Fatmawati
+    correctAns: Megawati
+  - questionInfo: Ibu Kota Indonesia
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Jakarta
+    - Bandung
+    - Aceh
+    - Yogyakarta
+    correctAns: Jakarta
+  - questionInfo: Jumlah provinsi Indoensia tahun 1950
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - 8
+    - 11
+    - 15
+    - 17
+    correctAns: 11
+  - questionInfo: Provinsi yang sudah pernah menjadi ibukota Indonesia, kecuali ...
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Aceh
+    - Yogyakarta
+    - Bekasi
+    - Bukittinggi
+    correctAns: Palangka Raya
+  - questionInfo: Indonesia salah satu bagian dari ...
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Asia Tenggara
+    - Australia
+    - Asia Barat
+    - Eropa
+    correctAns: Asia Tenggara
+  - questionInfo: Tokoh pada uang Rp 100,000
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Sukarno dan  Moh. Hatta
+    - Suharto dan Adam Malik
+    - Megawati  dan Hamzah Haz
+    - Joko Widodo dan Ma'ruf Amin
+    correctAns: Sukarno dan  Moh. Hatta
+  - questionInfo: Warna uang Rp 100,000
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Biru
+    - Merah
+    - Abu-abu
+    - Hijau
+    correctAns: Merah
+  - questionInfo: Jakarta terletak di pulau ...
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Jawa
+    - Kalimantan
+    - Sumatera
+    - Sulawesi
+    correctAns: Jawa
+  - questionInfo: Lokasi yang terletak pada pulau Jawa, kecuali
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Yogyakarta
+    - Bekasi
+    - Makassar
+    - Kediri
+    correctAns: Makassar
+  - questionInfo: Negara perbatasanan Indonesia yang dekat, kecuali
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Malaysia
+    - Laos
+    - Australia
+    - Papua Nugini
+    correctAns: Laos
+  - questionInfo: Luas Jakarta
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - 586 Km
+    - 662 Km
+    - 750 Km
+    - 984 Km
+    correctAns: 662 Km
+  - questionInfo: Nama lain Jakarta pada abad 18
+    questionType: 0
+    questionImage: {fileID: 0}
+    questionAudio: {fileID: 0}
+    questionVideo: {fileID: 0}
+    options:
+    - Sunda Kelapa
+    - Djakarta
+    - Jayakarta
+    - Batavia
+    correctAns: Batavia

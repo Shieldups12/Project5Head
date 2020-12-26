@@ -55,32 +55,31 @@ public class GameManager_MemoryGame : MonoBehaviour
 
     void Update()
     {
-        //if (memoryPauseScreen.activeSelf == false)
+        if (memoryPauseScreen.activeSelf == false)
+        {
+            sliderRight.value = timeRemaining;
+            sliderLeft.value = timeRemaining;
+
+            if (timeRemaining <= 0)
+            {
+                timeRemaining = 0;
+            }
+            else if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
+        }
+        //sliderRight.value = timeRemaining;
+        //sliderLeft.value = timeRemaining;
+
+        //if (timeRemaining <= 0)
         //{
-        //    sliderRight.value = timeRemaining;
-        //    sliderLeft.value = timeRemaining;
-
-        //    if (timeRemaining <= 0)
-        //    {
-        //        timeRemaining = 0;
-        //    }
-        //    else if (timeRemaining > 0)
-        //    {
-        //        timeRemaining -= Time.deltaTime;
-        //    }
+        //    timeRemaining = 0;
         //}
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
-
-        if (timeRemaining <= 0)
-        {
-            timeRemaining = 0;
-        }
-        else if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-        }
-
+        //else if (timeRemaining > 0)
+        //{
+        //    timeRemaining -= Time.deltaTime;
+        //}
         if (timeRemaining == 0)
         {
             if (memoryEndScreen.activeSelf == false)

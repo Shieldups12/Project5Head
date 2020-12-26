@@ -5,10 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager_TriviaGame : MonoBehaviour
 {
+    public GameObject triviaPause;
+
     public void BackTrivia()
     {
-        PlayerPrefs.DeleteKey("Trivia_Score");
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseMemory()
+    {
+        triviaPause.SetActive(true);
+    }
+
+    public void ContinueMemory()
+    {
+        triviaPause.SetActive(false);
     }
 
     void Update()

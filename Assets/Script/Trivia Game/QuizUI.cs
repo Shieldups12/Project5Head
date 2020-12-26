@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class QuizUI : MonoBehaviour
 {
     public GameObject triviaEndScreen;
+    public GameObject triviaPauseScreen;
 
     [SerializeField] private GameManager_TriviaGame gameManager_TriviaGame;
     [SerializeField] private TMP_Text questionText;
@@ -57,16 +58,19 @@ public class QuizUI : MonoBehaviour
 
     void Update()
     {
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
+        if (triviaPauseScreen.activeSelf == false)
+        {
+            sliderRight.value = timeRemaining;
+            sliderLeft.value = timeRemaining;
 
-        if (timeRemaining <= 0)
-        {
-            timeRemaining = 0;
-        }
-        else if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+            {
+                timeRemaining = 0;
+            }
+            else if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
         }
 
         if (timeRemaining == 0)

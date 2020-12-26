@@ -5,9 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager_MemoryGame : MonoBehaviour
 {
+    public GameObject memoryPause;
+
     public void BackMemory()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseMemory()
+    {
+        memoryPause.SetActive(true);
+    }
+
+    public void ContinueMemory()
+    {
+        memoryPause.SetActive(false);
     }
 
     void Update()

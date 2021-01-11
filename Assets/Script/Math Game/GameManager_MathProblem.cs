@@ -11,6 +11,9 @@ public class GameManager_MathProblem : MonoBehaviour
     public GameObject mathEndScreen;
     public GameObject mathPauseScreen;
 
+    public AudioSource yesSFX;
+    public AudioSource noSFX;
+
     public static GameManager_MathProblem instance;
     [SerializeField] private int playerMathScore = 0;
     [SerializeField] private TMP_Text scoreText;
@@ -287,6 +290,7 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerPlus)
         {
             Debug.Log("Correct");
+            yesSFX.Play();
             playerMathScore += 10;
             totalCorrect++;
             if (totalCorrect % 5 == 0 && totalCorrect > 0)
@@ -298,6 +302,7 @@ public class GameManager_MathProblem : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            noSFX.Play();
             timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
@@ -310,6 +315,7 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerMinus)
         {
             Debug.Log("Correct");
+            yesSFX.Play();
             playerMathScore += 10;
             totalCorrect++;
             if (totalCorrect % 5 == 0 && totalCorrect > 0)
@@ -321,6 +327,7 @@ public class GameManager_MathProblem : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            noSFX.Play();
             timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
@@ -333,6 +340,7 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerTimes)
         {
             Debug.Log("Correct");
+            yesSFX.Play();
             playerMathScore += 10;
             totalCorrect++;
             if (totalCorrect % 5 == 0 && totalCorrect > 0)
@@ -344,6 +352,7 @@ public class GameManager_MathProblem : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            noSFX.Play();
             timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());
@@ -356,6 +365,7 @@ public class GameManager_MathProblem : MonoBehaviour
         if (currentQuestion.answerDivide)
         {
             Debug.Log("Correct");
+            yesSFX.Play();
             playerMathScore += 10;
             totalCorrect++;
             if (totalCorrect % 5 == 0 && totalCorrect > 0)
@@ -367,6 +377,7 @@ public class GameManager_MathProblem : MonoBehaviour
         else
         {
             Debug.Log("Wrong");
+            noSFX.Play();
             timeRemaining--;
             totalWrong++;
             StartCoroutine(TransitionToNextQuestion());

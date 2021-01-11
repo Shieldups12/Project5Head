@@ -10,6 +10,9 @@ public class QuizUI : MonoBehaviour
     public GameObject triviaEndScreen;
     public GameObject triviaPauseScreen;
 
+    public AudioSource yesSFX;
+    public AudioSource noSFX;
+
     [SerializeField] private GameManager_TriviaGame gameManager_TriviaGame;
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private Image questionImage;
@@ -174,6 +177,7 @@ public class QuizUI : MonoBehaviour
             bool i = gameManager_TriviaGame.Answer(button.name);
             if (i)
             {
+                yesSFX.Play();
                 button.image.color = correctColor;
                 Debug.Log("Correct");
                 playerTriviaScore += 10;
@@ -186,6 +190,7 @@ public class QuizUI : MonoBehaviour
             }
             else
             {
+                noSFX.Play();
                 button.image.color = wrongColor;
                 Debug.Log("Wrong");
                 totalWrong++;

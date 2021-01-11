@@ -9,6 +9,9 @@ public class GameManager_MemoryGame : MonoBehaviour
     public GameObject memoryEndScreen;
     public GameObject memoryPauseScreen;
 
+    public AudioSource yesSFX;
+    public AudioSource noSFX;
+
     public List<Button> puzzleButtons;
     public List<ButtonAnswer> puzzleButtonAnswers;
     public AddButtons addButton;
@@ -346,8 +349,8 @@ public class GameManager_MemoryGame : MonoBehaviour
         currentButton.interactable = false;
         if (isCorrectAnswer)
         {
+            yesSFX.Play();
             currentCorrectAnswer++;
-            
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.green;
             colors.pressedColor = Color.green;
@@ -360,6 +363,7 @@ public class GameManager_MemoryGame : MonoBehaviour
         }
         else
         {
+            noSFX.Play();
             currentWrongAnswer++;
             var colors = currentButton.GetComponent<Button>().colors;
             colors.normalColor = Color.red;

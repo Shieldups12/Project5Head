@@ -178,7 +178,7 @@ public class QuizUI : MonoBehaviour
             if (i)
             {
                 yesSFX.Play();
-                button.image.color = correctColor;
+                //button.image.color = correctColor;
                 Debug.Log("Correct");
                 playerTriviaScore += 10;
                 totalCorrect++;
@@ -191,7 +191,7 @@ public class QuizUI : MonoBehaviour
             else
             {
                 noSFX.Play();
-                button.image.color = wrongColor;
+                //button.image.color = wrongColor;
                 Debug.Log("Wrong");
                 totalWrong++;
                 timeRemaining--;

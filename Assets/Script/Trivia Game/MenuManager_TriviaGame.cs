@@ -7,6 +7,11 @@ public class MenuManager_TriviaGame : MonoBehaviour
 {
     public GameObject triviaPause;
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     public void BackTrivia()
     {
         SceneManager.LoadScene(0);

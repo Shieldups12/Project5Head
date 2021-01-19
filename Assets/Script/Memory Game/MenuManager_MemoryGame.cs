@@ -7,6 +7,11 @@ public class MenuManager_MemoryGame : MonoBehaviour
 {
     public GameObject memoryPause;
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void BackMemory()
     {
         SceneManager.LoadScene(0);

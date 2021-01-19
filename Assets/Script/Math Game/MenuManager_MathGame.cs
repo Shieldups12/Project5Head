@@ -7,6 +7,11 @@ public class MenuManager_MathGame : MonoBehaviour
 {
     public GameObject mathPause;
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void BackMath()
     {
         SceneManager.LoadScene(0);

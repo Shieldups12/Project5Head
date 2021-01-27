@@ -56,7 +56,7 @@ public class QuizUI : MonoBehaviour
             Button localButton = options[i];
             localButton.onClick.AddListener(() => OnClick(localButton));
         }
-        
+        PlayerPrefs.SetInt("Trivia_Score", 0);
     }
 
     void Update()

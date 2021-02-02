@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class QuizUI : MonoBehaviour
 {
+    //universal
     public GameObject triviaEndScreen;
     public GameObject triviaPauseScreen;
 
@@ -23,22 +24,16 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     public int playerTriviaScore = 0;
 
-    [SerializeField] private TMP_Text scoreResultText;
-    [SerializeField] private TMP_Text recordFirstPlaceText;
-    [SerializeField] private TMP_Text recordSecondPlaceText;
-    [SerializeField] private TMP_Text recordThirdPlaceText;
-    [SerializeField] private TMP_Text recordFourthPlaceText;
-    [SerializeField] private Slider sliderCorrectWrongRatio;
+    //tricia game
+    private TriviaQuestion triviaQuestion;
+    private bool answered;
+    private float audioLength;
 
     //timer variable
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
-
-    private TriviaQuestion triviaQuestion;
-    private bool answered;
-    private float audioLength;
-
+       
     //endscreen
     private int totalCorrect = 0;
     private int totalWrong = 0;
@@ -46,7 +41,12 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private TMP_Text wrongText;
     [SerializeField] private TMP_Text totalText;
     private string scoreResult;
-    [SerializeField] private TMP_Text finalscoreText;
+    [SerializeField] private TMP_Text scoreResultText;
+    [SerializeField] private TMP_Text recordFirstPlaceText;
+    [SerializeField] private TMP_Text recordSecondPlaceText;
+    [SerializeField] private TMP_Text recordThirdPlaceText;
+    [SerializeField] private TMP_Text recordFourthPlaceText;
+    [SerializeField] private Slider sliderCorrectWrongRatio;
 
     // Start is called before the first frame update
     void Start()
@@ -155,20 +155,6 @@ public class QuizUI : MonoBehaviour
         questionAudio.transform.gameObject.SetActive(false);
     }
 
-    void AddBonusTime()
-    {
-        if (timeRemaining >= 30f)
-        {
-            timeRemaining = 30f;
-        }
-        else
-        {
-            timeRemaining++;
-        }
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
-    }
-
     private void OnClick(Button button)
     {
         if (!answered)
@@ -198,6 +184,48 @@ public class QuizUI : MonoBehaviour
                 PlayerPrefs.SetInt("Trivia_Score", playerTriviaScore);
             }
         }
+    }
+
+    void AddBonusTime()
+    {
+        if (timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+    }
+
+    public void FinalTriviaScore()
+    {
+        Debug.Log("Hello");
+        if (playerTriviaScore >= 150)
+        {
+            scoreResult = "A+";
+        }
+        else if (playerTriviaScore >= 120)
+        {
+            scoreResult = "A";
+        }
+        else if (playerTriviaScore >= 90)
+        {
+            scoreResult = "B";
+        }
+        else
+        {
+            scoreResult = "C";
+        }
+        scoreResultText.text = scoreResult;
+        int totalAnsweredQuestion = totalCorrect + totalWrong;
+        float correctWrongRatio = ((float)totalCorrect / (float)totalAnsweredQuestion) * 100f;
+        sliderCorrectWrongRatio.value = correctWrongRatio;
+        correctText.text = totalCorrect.ToString();
+        wrongText.text = totalWrong.ToString();
+        totalText.text = playerTriviaScore.ToString();
     }
 
     void ShowRecord()
@@ -261,33 +289,5 @@ public class QuizUI : MonoBehaviour
             recordThirdPlaceText.text = "";
             recordFourthPlaceText.text = "";
         }
-    }
-
-    public void FinalTriviaScore()
-    {
-        Debug.Log("Hello");
-        if (playerTriviaScore >= 150)
-        {
-            scoreResult = "A+";
-        }
-        else if (playerTriviaScore >= 120)
-        {
-            scoreResult = "A";
-        }
-        else if (playerTriviaScore >= 90)
-        {
-            scoreResult = "B";
-        }
-        else
-        {
-            scoreResult = "C";
-        }
-        finalscoreText.text = scoreResult;
-        int totalAnsweredQuestion = totalCorrect + totalWrong;
-        float correctWrongRatio = ((float)totalCorrect / (float)totalAnsweredQuestion) * 100f;
-        sliderCorrectWrongRatio.value = correctWrongRatio;
-        correctText.text = totalCorrect.ToString();
-        wrongText.text = totalWrong.ToString();
-        totalText.text = playerTriviaScore.ToString();
     }
 }

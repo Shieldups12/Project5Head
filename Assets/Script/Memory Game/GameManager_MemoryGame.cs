@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager_MemoryGame : MonoBehaviour
 {
+    //universal variable
     public GameObject memoryEndScreen;
     public GameObject memoryPauseScreen;
 
@@ -20,16 +21,19 @@ public class GameManager_MemoryGame : MonoBehaviour
     public TMP_Text correctTileCountText;
     public TMP_Text scoreText;
 
+    //timer
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
 
+    //memory game
     [SerializeField] private int levelCount;
     [SerializeField] private int correctTileCount;
     [SerializeField] private int gridSize;
     [SerializeField] private float timeShowAnswer;
     [SerializeField] private int playerMemoryScore;
     
+    //endscreen
     private int totalCorrect = 0;
     private int totalWrong = 0;
     private int currentCorrectAnswer;
@@ -72,17 +76,7 @@ public class GameManager_MemoryGame : MonoBehaviour
                 timeRemaining -= Time.deltaTime;
             }
         }
-        //sliderRight.value = timeRemaining;
-        //sliderLeft.value = timeRemaining;
 
-        //if (timeRemaining <= 0)
-        //{
-        //    timeRemaining = 0;
-        //}
-        //else if (timeRemaining > 0)
-        //{
-        //    timeRemaining -= Time.deltaTime;
-        //}
         if (timeRemaining == 0)
         {
             if (memoryEndScreen.activeSelf == false)
@@ -92,75 +86,6 @@ public class GameManager_MemoryGame : MonoBehaviour
                 memoryEndScreen.SetActive(true);
             }
         }
-    }
-
-    void ShowRecord()
-    {
-        //Save Current Session Score
-        int recordCount = PlayerPrefs.GetInt("memoryGameRecordCount", 0);
-        PlayerPrefs.SetInt("memoryGameRecord_" + recordCount.ToString(), playerMemoryScore);
-        recordCount++;
-        PlayerPrefs.SetInt("memoryGameRecordCount", recordCount);
-        //Load All Score
-        List<int> recordList = new List<int>();
-        for (int i = 0; i < recordCount; i++)
-        {
-            recordList.Add(PlayerPrefs.GetInt("memoryGameRecord_" + i.ToString()));
-        }
-        //Display Top 4 Score
-        if (recordList.Count > 0)
-        {
-            recordList.Sort();
-            recordList.Reverse();
-            if (recordList.Count >= 4)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text = recordList[2].ToString();
-                recordFourthPlaceText.text = recordList[3].ToString();
-            }
-            else if (recordList.Count == 3)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text = recordList[2].ToString();
-                recordFourthPlaceText.text = "";
-            }
-            else if (recordList.Count == 2)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-            else if (recordList.Count == 1)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = "";
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-            else
-            {
-                recordFirstPlaceText.text = "";
-                recordSecondPlaceText.text = "";
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-        }
-        else
-        {
-            recordFirstPlaceText.text = "";
-            recordSecondPlaceText.text = "";
-            recordThirdPlaceText.text = "";
-            recordFourthPlaceText.text = "";
-        }
-    }
-
-    void SetLevelUI()
-    {
-        levelText.text = "Lv. " + levelCount.ToString();
-        correctTileCountText.text = currentCorrectAnswer.ToString() + " / " + correctTileCount.ToString();
     }
 
     void SetLevel()
@@ -254,6 +179,12 @@ public class GameManager_MemoryGame : MonoBehaviour
         }
     }
 
+    void SetLevelUI()
+    {
+        levelText.text = "Lv. " + levelCount.ToString();
+        correctTileCountText.text = currentCorrectAnswer.ToString() + " / " + correctTileCount.ToString();
+    }
+
     void ShowCorrectTileColor()
     {      
         for (int i = 0; i < puzzleButtons.Count; i++)
@@ -329,20 +260,6 @@ public class GameManager_MemoryGame : MonoBehaviour
             Start();
         }
     }
-    
-    void AddBonusTime()
-    {
-        if (timeRemaining >= 30f)
-        {
-            timeRemaining = 30f;
-        }
-        else
-        {
-            timeRemaining++;
-        }
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
-    }
 
     void UserSelectTile(bool isCorrectAnswer, Button currentButton)
     {
@@ -375,6 +292,20 @@ public class GameManager_MemoryGame : MonoBehaviour
         }
     }
 
+    void AddBonusTime()
+    {
+        if (timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+    }
+
     public void FinalMemoryScore()
     {
         if (playerMemoryScore >= 180)
@@ -400,5 +331,70 @@ public class GameManager_MemoryGame : MonoBehaviour
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();
         totalText.text = playerMemoryScore.ToString();
+    }
+
+    void ShowRecord()
+    {
+        //save surrent session score
+        int recordCount = PlayerPrefs.GetInt("memoryGameRecordCount", 0);
+        PlayerPrefs.SetInt("memoryGameRecord_" + recordCount.ToString(), playerMemoryScore);
+        recordCount++;
+        PlayerPrefs.SetInt("memoryGameRecordCount", recordCount);
+
+        //load all score
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("memoryGameRecord_" + i.ToString()));
+        }
+
+        //display top 4 score
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordFirstPlaceText.text = "";
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordFirstPlaceText.text = "";
+            recordSecondPlaceText.text = "";
+            recordThirdPlaceText.text = "";
+            recordFourthPlaceText.text = "";
+        }
     }
 }

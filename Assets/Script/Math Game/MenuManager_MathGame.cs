@@ -27,16 +27,16 @@ public class MenuManager_MathGame : MonoBehaviour
         mathPause.SetActive(false);
     }
 
-    public void DebugResetAllRecords()
-    {
-        int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
-        for (int i = 0; i < recordCount; i++)
-        {
-            PlayerPrefs.DeleteKey("mathProblemRecord_" + i.ToString());
-        }
-        PlayerPrefs.SetInt("mathProblemRecordCount", 0);
-        Debug.Log("All Record has deleted!");
-    }
+    //public void DebugResetAllRecords()
+    //{
+    //    int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
+    //    for (int i = 0; i < recordCount; i++)
+    //    {
+    //        PlayerPrefs.DeleteKey("mathProblemRecord_" + i.ToString());
+    //    }
+    //    PlayerPrefs.SetInt("mathProblemRecordCount", 0);
+    //    Debug.Log("All Record has deleted!");
+    //}
     
     void Update()
     {

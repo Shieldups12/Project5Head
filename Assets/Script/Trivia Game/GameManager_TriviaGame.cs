@@ -35,7 +35,7 @@ public class GameManager_TriviaGame : MonoBehaviour
 
         }
 
-        Invoke("SelectTriviaQuestion", 0.25f);
+        Invoke("SelectTriviaQuestion", 0f);
 
         return correctAnswer;
     }

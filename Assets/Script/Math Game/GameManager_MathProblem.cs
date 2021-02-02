@@ -8,6 +8,7 @@ using TMPro;
 
 public class GameManager_MathProblem : MonoBehaviour
 {
+    //universal
     public GameObject mathEndScreen;
     public GameObject mathPauseScreen;
 
@@ -25,13 +26,13 @@ public class GameManager_MathProblem : MonoBehaviour
     [SerializeField] private TMP_Text mathText;
     [SerializeField] private float timeBetweenQuestions;
 
-    //math problem variable
+    //math game
     int mathSymbol;
     int firstNumber;
     int secondNumber;
     float answerNumber;
 
-    //timer variable
+    //timer
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
@@ -64,28 +65,9 @@ public class GameManager_MathProblem : MonoBehaviour
         FinalMathScore();
     }
 
-    //void Awake()
-    //{
-    //    instance = this;
-    //}
-
-    //check for possible comma answer for division
-    List<int> FindPossibleDivisor(int number)
-    {
-        List<int> divisorList = new List<int>();
-        for (int i = 1; i <= number; i++)
-        {
-            if (number % i == 0)
-            {
-                divisorList.Add(i);
-            }
-        }
-        return divisorList;
-    }
-
-    //timer countdown
     void Update()
     {
+        //time slider
         if(mathPauseScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
@@ -101,6 +83,7 @@ public class GameManager_MathProblem : MonoBehaviour
             }
         }
 
+        //check time ends
         if (timeRemaining == 0)
         {
             if(mathEndScreen.activeSelf == false)
@@ -111,70 +94,7 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
-    void ShowRecord()
-    {
-        //Save Current Session Score
-        int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
-        PlayerPrefs.SetInt("mathProblemRecord_" + recordCount.ToString(), playerMathScore);
-        recordCount++;
-        PlayerPrefs.SetInt("mathProblemRecordCount", recordCount);
-        //Load All Score
-        List<int> recordList = new List<int>();
-        for(int i=0; i<recordCount; i++)
-        {
-            recordList.Add(PlayerPrefs.GetInt("mathProblemRecord_" + i.ToString()));
-        }
-        //Display Top 4 Score
-        if (recordList.Count > 0)
-        {
-            recordList.Sort();
-            recordList.Reverse();
-            if(recordList.Count >= 4)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text =  recordList[2].ToString();
-                recordFourthPlaceText.text = recordList[3].ToString();
-            }
-            else if (recordList.Count == 3)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text = recordList[2].ToString();
-                recordFourthPlaceText.text = "";
-            }
-            else if (recordList.Count == 2)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = recordList[1].ToString();
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-            else if (recordList.Count == 1)
-            {
-                recordFirstPlaceText.text = recordList[0].ToString();
-                recordSecondPlaceText.text = "";
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-            else
-            {
-                recordFirstPlaceText.text = "";
-                recordSecondPlaceText.text = "";
-                recordThirdPlaceText.text = "";
-                recordFourthPlaceText.text = "";
-            }
-        }
-        else
-        {
-            recordFirstPlaceText.text = "";
-            recordSecondPlaceText.text = "";
-            recordThirdPlaceText.text = "";
-            recordFourthPlaceText.text = "";
-        }
-        
-    }
-
+    //randomize math question
     void RandomizeMathQuestion()
     {
         mathSymbol = Random.Range(1, 5);
@@ -204,7 +124,7 @@ public class GameManager_MathProblem : MonoBehaviour
 
     }
 
-    //set current question answer
+    //set current math answer
     void SetMathQuestion()
     {
         if (currentQuestion.answerPlus)
@@ -229,7 +149,7 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
-    //check answer if there's possible way for two answer
+    //check for two possible answer
     void CheckMathAnswer()
     {
         if (answerNumber == firstNumber + secondNumber)
@@ -250,6 +170,20 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
+    //check comma for division question
+    List<int> FindPossibleDivisor(int number)
+    {
+        List<int> divisorList = new List<int>();
+        for (int i = 1; i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                divisorList.Add(i);
+            }
+        }
+        return divisorList;
+    }
+
     //display question on screen
     void DisplayMathQuestion()
     {
@@ -257,31 +191,6 @@ public class GameManager_MathProblem : MonoBehaviour
 
         mathText.text = currentQuestion.mathProblem;
         scoreText.text = playerMathScore.ToString();
-    }
-
-    void AddBonusTime()
-    {
-        if(timeRemaining >= 30f)
-        {
-            timeRemaining = 30f;
-        }
-        else
-        {
-            timeRemaining++;
-        }
-        sliderRight.value = timeRemaining;
-        sliderLeft.value = timeRemaining;
-    }
-
-    //transition to the next question (0s)
-    IEnumerator TransitionToNextQuestion()
-    {
-        unansweredQuestions.Remove(currentQuestion);
-
-        yield return new WaitForSeconds(timeBetweenQuestions);
-
-        //Invoke("Start", 0f);
-        Start();
     }
 
     //button click plus answer
@@ -383,7 +292,33 @@ public class GameManager_MathProblem : MonoBehaviour
             StartCoroutine(TransitionToNextQuestion());
         }
     }
-    
+
+    //add bonus time for 5 correct answer
+    void AddBonusTime()
+    {
+        if (timeRemaining >= 30f)
+        {
+            timeRemaining = 30f;
+        }
+        else
+        {
+            timeRemaining++;
+        }
+        sliderRight.value = timeRemaining;
+        sliderLeft.value = timeRemaining;
+    }
+
+    //transition to the next question (0s)
+    IEnumerator TransitionToNextQuestion()
+    {
+        unansweredQuestions.Remove(currentQuestion);
+
+        yield return new WaitForSeconds(timeBetweenQuestions);
+
+        Start();
+    }
+
+    //math statistic endscreen
     public void FinalMathScore()
     {
         if (playerMathScore >= 180)
@@ -409,5 +344,72 @@ public class GameManager_MathProblem : MonoBehaviour
         correctText.text = totalCorrect.ToString();
         wrongText.text = totalWrong.ToString();
         totalText.text = playerMathScore.ToString();
+    }
+
+    //show record on endscreen
+    void ShowRecord()
+    {
+        //save current session score
+        int recordCount = PlayerPrefs.GetInt("mathProblemRecordCount", 0);
+        PlayerPrefs.SetInt("mathProblemRecord_" + recordCount.ToString(), playerMathScore);
+        recordCount++;
+        PlayerPrefs.SetInt("mathProblemRecordCount", recordCount);
+
+        //load all score
+        List<int> recordList = new List<int>();
+        for (int i = 0; i < recordCount; i++)
+        {
+            recordList.Add(PlayerPrefs.GetInt("mathProblemRecord_" + i.ToString()));
+        }
+
+        //display top 4 score
+        if (recordList.Count > 0)
+        {
+            recordList.Sort();
+            recordList.Reverse();
+            if (recordList.Count >= 4)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = recordList[3].ToString();
+            }
+            else if (recordList.Count == 3)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = recordList[2].ToString();
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 2)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = recordList[1].ToString();
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else if (recordList.Count == 1)
+            {
+                recordFirstPlaceText.text = recordList[0].ToString();
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+            else
+            {
+                recordFirstPlaceText.text = "";
+                recordSecondPlaceText.text = "";
+                recordThirdPlaceText.text = "";
+                recordFourthPlaceText.text = "";
+            }
+        }
+        else
+        {
+            recordFirstPlaceText.text = "";
+            recordSecondPlaceText.text = "";
+            recordThirdPlaceText.text = "";
+            recordFourthPlaceText.text = "";
+        }
+
     }
 }

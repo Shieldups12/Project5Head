@@ -8,19 +8,11 @@ using TMPro;
 
 public class GameManager_MathProblem : MonoBehaviour
 {
-    //screen gameobject
     public GameObject mathEndScreen;
     public GameObject mathPauseScreen;
-    public GameObject mathCountdownScreen;
 
-    //audio
     public AudioSource yesSFX;
     public AudioSource noSFX;
-
-    //countdown timer
-    float countdownCurrentTime = 0f;
-    float countdownStartTime = 3f;
-    [SerializeField] private TMP_Text countdownText;
 
     public static GameManager_MathProblem instance;
     [SerializeField] private int playerMathScore = 0;
@@ -60,8 +52,11 @@ public class GameManager_MathProblem : MonoBehaviour
 
     void Start()
     {
-        countdownCurrentTime = countdownStartTime;
-        StartCoroutine(WaitBeforeShow());
+        if (unansweredQuestions == null || unansweredQuestions.Count == 0)
+        {
+            unansweredQuestions = mathQuestion.ToList<MathQuestion>();
+        }
+
         RandomizeMathQuestion();
         SetMathQuestion();
         CheckMathAnswer();
@@ -91,9 +86,7 @@ public class GameManager_MathProblem : MonoBehaviour
     //timer countdown
     void Update()
     {
-        countdownCurrentTime -= 1 * Time.deltaTime;
-
-        if (mathPauseScreen.activeSelf||mathCountdownScreen.activeSelf == false)
+        if(mathPauseScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
@@ -108,13 +101,6 @@ public class GameManager_MathProblem : MonoBehaviour
             }
         }
 
-        countdownText.text = countdownCurrentTime.ToString("0");
-
-        if (countdownCurrentTime <= 0)
-        {
-            countdownCurrentTime = 0;
-        }
-
         if (timeRemaining == 0)
         {
             if(mathEndScreen.activeSelf == false)
@@ -123,14 +109,6 @@ public class GameManager_MathProblem : MonoBehaviour
                 mathEndScreen.SetActive(true);
             }
         }
-    }
-
-    IEnumerator WaitBeforeShow()
-    {
-        mathCountdownScreen.SetActive(true);
-        yield return new WaitForSeconds(3);
-        mathCountdownScreen.SetActive(false);
-        mathText.gameObject.SetActive(true);
     }
 
     void ShowRecord()
@@ -199,11 +177,6 @@ public class GameManager_MathProblem : MonoBehaviour
 
     void RandomizeMathQuestion()
     {
-        if (unansweredQuestions == null || unansweredQuestions.Count == 0)
-        {
-            unansweredQuestions = mathQuestion.ToList<MathQuestion>();
-        }
-
         mathSymbol = Random.Range(1, 5);
         firstNumber = Random.Range(1, 21);
         secondNumber = Random.Range(1, 21);
@@ -307,7 +280,8 @@ public class GameManager_MathProblem : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenQuestions);
 
-        RandomizeMathQuestion();
+        //Invoke("Start", 0f);
+        Start();
     }
 
     //button click plus answer

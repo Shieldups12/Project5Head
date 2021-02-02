@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager_MathGame : MonoBehaviour
 {
     public GameObject mathPause;
+    [SerializeField] private TMP_Text mathText;
 
     public void Restart()
     {
@@ -20,11 +22,13 @@ public class MenuManager_MathGame : MonoBehaviour
     public void PauseMath()
     {
         mathPause.SetActive(true);
+        mathText.gameObject.SetActive(false);
     }
 
     public void ContinueMath()
     {
         mathPause.SetActive(false);
+        mathText.gameObject.SetActive(true);
     }
 
     public void DebugResetAllRecords()

@@ -6,13 +6,21 @@ using UnityEngine.UI;
 
 public class GameManager_MemoryGame : MonoBehaviour
 {
-    //universal variable
+    //screen
     public GameObject memoryEndScreen;
     public GameObject memoryPauseScreen;
+    public GameObject memoryCountdownScreen;
 
+    //audio
     public AudioSource yesSFX;
     public AudioSource noSFX;
 
+    //countdown
+    float countdownCurrentTime = 0f;
+    float countdownStartTime = 3f;
+    [SerializeField] private TMP_Text countdownText;
+
+    //memory game
     public List<Button> puzzleButtons;
     public List<ButtonAnswer> puzzleButtonAnswers;
     public AddButtons addButton;
@@ -20,19 +28,18 @@ public class GameManager_MemoryGame : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text correctTileCountText;
     public TMP_Text scoreText;
+    
+    [SerializeField] private int levelCount;
+    [SerializeField] private int correctTileCount;
+    [SerializeField] private int gridSize;
+    [SerializeField] private float timeShowAnswer;
+    [SerializeField] private int playerMemoryScore;
 
     //timer
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
 
-    //memory game
-    [SerializeField] private int levelCount;
-    [SerializeField] private int correctTileCount;
-    [SerializeField] private int gridSize;
-    [SerializeField] private float timeShowAnswer;
-    [SerializeField] private int playerMemoryScore;
-    
     //endscreen
     private int totalCorrect = 0;
     private int totalWrong = 0;
@@ -47,22 +54,78 @@ public class GameManager_MemoryGame : MonoBehaviour
     [SerializeField] private TMP_Text recordSecondPlaceText;
     [SerializeField] private TMP_Text recordThirdPlaceText;
     [SerializeField] private TMP_Text recordFourthPlaceText;
-    [SerializeField] private Slider sliderCorrectWrongRatio;
+    [SerializeField] private Slider sliderCorrectWrongRatio;  
 
     void Start()
     {
+        if (PlayerPrefs.GetInt("IsMemoryGameStart", 0) == 0)
+        {
+            CountdownTrigger();
+        }
         SetLevel();
         SetCellSize();
         GetButtons();
         RandomizeCorrectTile();
         SetLevelUI();
-        ShowCorrectTileColor();
-        StartCoroutine(RevertTileColor());
+        if (PlayerPrefs.GetInt("IsMemoryGameStart", 0) == 1)
+        {
+            ShowCorrectTileColor();
+            StartCoroutine(RevertTileColor());
+        }
+        //startTime = Time.time;
+        //isGenerated = false;
     }
 
+    void CountdownTrigger()
+    {
+        countdownCurrentTime = countdownStartTime;
+        StartCoroutine(WaitBeforeShow());
+    }
+    void DoCountdown()
+    {
+
+        countdownCurrentTime -= 1 * Time.deltaTime;
+        countdownText.text = countdownCurrentTime.ToString("0");
+
+        if (countdownCurrentTime <= 0)
+        {
+
+            countdownCurrentTime = 0;
+        }
+    }
+
+    //bool isGenerated = false;
+    //float startTime;
     void Update()
     {
-        if (memoryPauseScreen.activeSelf == false)
+        //float waitingTime = Time.time - startTime;
+        //float t = 1 - Mathf.Pow((1 - (waitingTime)),2.0f);
+        //if (waitingTime <= 1)
+        //{
+        //    for (int i = 0; i < puzzleButtons.Count; i++)
+        //    {
+        //        var colors = puzzleButtons[i].GetComponent<Button>().colors;
+        //        if(colors.normalColor != Color.white)
+        //        {
+        //            colors.normalColor = Color.Lerp(Color.green, Color.white, t);
+        //        }
+
+        //        puzzleButtons[i].GetComponent<Button>().colors = colors;
+        //        puzzleButtons[i].interactable = true;
+        //    }
+        //    Debug.Log("Test");
+        //}
+        //else
+        //{
+        //    if(!isGenerated)
+        //    {
+        //        Debug.Log("Generated");
+        //        isGenerated = true;
+        //        AddTileJudgement();
+        //    }
+        //}
+        DoCountdown();
+        if (memoryPauseScreen.activeSelf || memoryCountdownScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
@@ -86,6 +149,18 @@ public class GameManager_MemoryGame : MonoBehaviour
                 memoryEndScreen.SetActive(true);
             }
         }
+    }
+
+    //countdown timer
+    IEnumerator WaitBeforeShow()
+    {
+        memoryCountdownScreen.SetActive(true);
+        yield return new WaitForSeconds(3);
+
+        PlayerPrefs.SetInt("IsMemoryGameStart", 1);
+        memoryCountdownScreen.SetActive(false);
+        ShowCorrectTileColor();
+        StartCoroutine(RevertTileColor());
     }
 
     void SetLevel()

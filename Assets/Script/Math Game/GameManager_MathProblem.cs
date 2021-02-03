@@ -8,13 +8,21 @@ using TMPro;
 
 public class GameManager_MathProblem : MonoBehaviour
 {
-    //universal
+    //screen
     public GameObject mathEndScreen;
     public GameObject mathPauseScreen;
+    public GameObject mathCountdownScreen;
 
+    //audio
     public AudioSource yesSFX;
     public AudioSource noSFX;
 
+    //countdown timer
+    float countdownCurrentTime = 0f;
+    float countdownStartTime = 3f;
+    [SerializeField] private TMP_Text countdownText;
+
+    //math game
     public static GameManager_MathProblem instance;
     [SerializeField] private int playerMathScore = 0;
     [SerializeField] private TMP_Text scoreText;
@@ -26,7 +34,6 @@ public class GameManager_MathProblem : MonoBehaviour
     [SerializeField] private TMP_Text mathText;
     [SerializeField] private float timeBetweenQuestions;
 
-    //math game
     int mathSymbol;
     int firstNumber;
     int secondNumber;
@@ -36,6 +43,11 @@ public class GameManager_MathProblem : MonoBehaviour
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
+    public Image sliderRightImage;
+    public Image sliderLeftImage;
+    private Color startColor = new Color(255, 255, 255, 1);
+    private Color endColor = new Color(255, 255, 255, 0);
+    private float startSliderTime;
 
     //endscreen
     private int totalCorrect = 0;
@@ -53,26 +65,55 @@ public class GameManager_MathProblem : MonoBehaviour
 
     void Start()
     {
-        if (unansweredQuestions == null || unansweredQuestions.Count == 0)
+        if(PlayerPrefs.GetInt("IsMathProblemStart",0) == 0)
         {
-            unansweredQuestions = mathQuestion.ToList<MathQuestion>();
+            CountdownTrigger();
         }
 
+        
         RandomizeMathQuestion();
         SetMathQuestion();
         CheckMathAnswer();
         DisplayMathQuestion();
         FinalMathScore();
     }
+    void CountdownTrigger()
+    {
+        countdownCurrentTime = countdownStartTime;
+        StartCoroutine(WaitBeforeShow());
+    }
+    void DoCountdown()
+    {
+        
+        countdownCurrentTime -= 1 * Time.deltaTime;
+        countdownText.text = countdownCurrentTime.ToString("0");
 
+        if (countdownCurrentTime <= 0)
+        {
+            
+            countdownCurrentTime = 0;
+        }
+    }
+    
+    void BlinkSlider()
+    {
+        float t = ((Mathf.Sin((Time.time - startSliderTime) * 9) / 2) + 0.5f);
+        sliderLeftImage.color = Color.Lerp(startColor, endColor, t);
+        sliderRightImage.color = Color.Lerp(startColor, endColor, t);
+    }
     void Update()
     {
+        DoCountdown();
+
         //time slider
-        if(mathPauseScreen.activeSelf == false)
+        if (mathPauseScreen.activeSelf || mathCountdownScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
-
+            if(timeRemaining <= 10)
+            {
+                BlinkSlider();
+            }
             if (timeRemaining <= 0)
             {
                 timeRemaining = 0;
@@ -94,9 +135,25 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
+    //countdown timer
+    IEnumerator WaitBeforeShow()
+    {
+        mathCountdownScreen.SetActive(true);
+        yield return new WaitForSeconds(3);
+        startSliderTime = Time.time;
+        PlayerPrefs.SetInt("IsMathProblemStart", 1);
+        mathCountdownScreen.SetActive(false);
+        mathText.gameObject.SetActive(true);
+    }
+    
     //randomize math question
     void RandomizeMathQuestion()
     {
+        if (unansweredQuestions == null || unansweredQuestions.Count == 0)
+        {
+            unansweredQuestions = mathQuestion.ToList<MathQuestion>();
+        }
+
         mathSymbol = Random.Range(1, 5);
         firstNumber = Random.Range(1, 21);
         secondNumber = Random.Range(1, 21);
@@ -316,6 +373,7 @@ public class GameManager_MathProblem : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenQuestions);
 
         Start();
+        //RandomizeMathQuestion();
     }
 
     //math statistic endscreen

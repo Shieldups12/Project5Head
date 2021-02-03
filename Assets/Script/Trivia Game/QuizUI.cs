@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class QuizUI : MonoBehaviour
 {
-    //universal
+    //screen
     public GameObject triviaEndScreen;
     public GameObject triviaPauseScreen;
 
+    //audio
     public AudioSource yesSFX;
     public AudioSource noSFX;
 
+    //trivia game
     [SerializeField] private GameManager_TriviaGame gameManager_TriviaGame;
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private Image questionImage;
@@ -24,7 +26,6 @@ public class QuizUI : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     public int playerTriviaScore = 0;
 
-    //tricia game
     private TriviaQuestion triviaQuestion;
     private bool answered;
     private float audioLength;

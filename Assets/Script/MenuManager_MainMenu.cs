@@ -23,11 +23,13 @@ public class MenuManager_MainMenu : MonoBehaviour
 
     public void PlayMath()
     {
+        PlayerPrefs.SetInt("IsMathProblemStart", 0);
         SceneManager.LoadScene(1);
     }
 
     public void PlayMemory()
     {
+        PlayerPrefs.SetInt("IsMemoryGameStart", 0);
         SceneManager.LoadScene(2);
     }
 

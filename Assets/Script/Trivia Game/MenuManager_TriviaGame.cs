@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager_TriviaGame : MonoBehaviour
 {
     public GameObject triviaPause;
+    public TMP_Text questionText;
 
     public void Restart()
     {
@@ -20,11 +22,13 @@ public class MenuManager_TriviaGame : MonoBehaviour
     public void PauseMemory()
     {
         triviaPause.SetActive(true);
+        questionText.gameObject.SetActive(false);
     }
 
     public void ContinueMemory()
     {
         triviaPause.SetActive(false);
+        questionText.gameObject.SetActive(true);
     }
 
     void Update()

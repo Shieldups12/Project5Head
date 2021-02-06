@@ -2093,7 +2093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &388402604
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4225,9 +4225,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 1
   m_MinValue: 0
-  m_MaxValue: 30
+  m_MaxValue: 40
   m_WholeNumbers: 0
-  m_Value: 30
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6755,8 +6755,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triviaEndScreen: {fileID: 302370212}
   triviaPauseScreen: {fileID: 1771248381}
+  triviaCountdownScreen: {fileID: 1699354480}
   yesSFX: {fileID: 1691026857}
   noSFX: {fileID: 1900472556}
+  countdownText: {fileID: 575916274}
   gameManager_TriviaGame: {fileID: 686401481}
   questionText: {fileID: 388402605}
   questionImage: {fileID: 1827148120}
@@ -6774,6 +6776,8 @@ MonoBehaviour:
   playerTriviaScore: 0
   sliderRight: {fileID: 1620534109}
   sliderLeft: {fileID: 739168036}
+  sliderRightImage: {fileID: 779884481}
+  sliderLeftImage: {fileID: 1822673849}
   correctText: {fileID: 1664714322}
   wrongText: {fileID: 516017318}
   totalText: {fileID: 1584564285}
@@ -7425,9 +7429,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 30
+  m_MaxValue: 40
   m_WholeNumbers: 0
-  m_Value: 30
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7922,7 +7926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699354481
 RectTransform:
   m_ObjectHideFlags: 0

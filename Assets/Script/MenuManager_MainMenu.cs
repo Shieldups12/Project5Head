@@ -23,7 +23,7 @@ public class MenuManager_MainMenu : MonoBehaviour
 
     public void PlayMath()
     {
-        PlayerPrefs.SetInt("IsMathProblemStart", 0);
+        PlayerPrefs.SetInt("IsMathGameStart", 0);
         SceneManager.LoadScene(1);
     }
 
@@ -35,6 +35,7 @@ public class MenuManager_MainMenu : MonoBehaviour
 
     public void PlayTrivia()
     {
+        PlayerPrefs.SetInt("IsTriviaGameStart", 0);
         SceneManager.LoadScene(3);
     }
 

@@ -10,10 +10,16 @@ public class QuizUI : MonoBehaviour
     //screen
     public GameObject triviaEndScreen;
     public GameObject triviaPauseScreen;
+    public GameObject triviaCountdownScreen;
 
     //audio
     public AudioSource yesSFX;
     public AudioSource noSFX;
+
+    //countdown timer
+    float countdownCurrentTime = 0f;
+    float countdownStartTime = 3f;
+    [SerializeField] private TMP_Text countdownText;
 
     //trivia game
     [SerializeField] private GameManager_TriviaGame gameManager_TriviaGame;
@@ -31,10 +37,16 @@ public class QuizUI : MonoBehaviour
     private float audioLength;
 
     //timer variable
-    private float timeRemaining = 30f;
+    private float timeRemaining = 40f;
     public Slider sliderRight;
     public Slider sliderLeft;
-       
+
+    public Image sliderRightImage;
+    public Image sliderLeftImage;
+    private Color startColor = new Color(255, 255, 255, 1);
+    private Color endColor = new Color(255, 255, 255, 0);
+    private float startSliderTime;
+
     //endscreen
     private int totalCorrect = 0;
     private int totalWrong = 0;
@@ -52,6 +64,11 @@ public class QuizUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt("IsTriviaGameStart", 0) == 0)
+        {
+            CountdownTrigger();
+        }
+
         for (int i = 0; i < options.Count; i++)
         {
             Button localButton = options[i];
@@ -62,11 +79,17 @@ public class QuizUI : MonoBehaviour
 
     void Update()
     {
-        if (triviaPauseScreen.activeSelf == false)
+        DoCountdown();
+
+        if (triviaPauseScreen.activeSelf || triviaCountdownScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
 
+            if (timeRemaining <= 6.66)
+            {
+                BlinkSlider();
+            }
             if (timeRemaining <= 0)
             {
                 timeRemaining = 0;
@@ -88,6 +111,42 @@ public class QuizUI : MonoBehaviour
         }
 
         scoreText.text = PlayerPrefs.GetInt("Trivia_Score").ToString();
+    }
+
+    void CountdownTrigger()
+    {
+        countdownCurrentTime = countdownStartTime;
+        StartCoroutine(WaitBeforeShow());
+    }
+    void DoCountdown()
+    {
+
+        countdownCurrentTime -= 1 * Time.deltaTime;
+        countdownText.text = countdownCurrentTime.ToString("0");
+
+        if (countdownCurrentTime <= 0)
+        {
+
+            countdownCurrentTime = 0;
+        }
+    }
+
+    void BlinkSlider()
+    {
+        float t = ((Mathf.Sin((Time.time - startSliderTime) * 9) / 2) + 0.5f);
+        sliderLeftImage.color = Color.Lerp(startColor, endColor, t);
+        sliderRightImage.color = Color.Lerp(startColor, endColor, t);
+    }
+
+    //countdown timer
+    IEnumerator WaitBeforeShow()
+    {
+        triviaCountdownScreen.SetActive(true);
+        yield return new WaitForSeconds(3);
+        startSliderTime = Time.time;
+        PlayerPrefs.SetInt("IsTriviaGameStart", 1);
+        triviaCountdownScreen.SetActive(false);
+        questionText.gameObject.SetActive(true);
     }
 
     public void SetTriviaQuestion(TriviaQuestion triviaQuestion)
@@ -189,9 +248,9 @@ public class QuizUI : MonoBehaviour
 
     void AddBonusTime()
     {
-        if (timeRemaining >= 30f)
+        if (timeRemaining >= 40f)
         {
-            timeRemaining = 30f;
+            timeRemaining = 40f;
         }
         else
         {

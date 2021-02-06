@@ -4359,6 +4359,8 @@ MonoBehaviour:
   playerMemoryScore: 0
   sliderRight: {fileID: 1718999768}
   sliderLeft: {fileID: 1504833450}
+  sliderRightImage: {fileID: 482641512}
+  sliderLeftImage: {fileID: 801977704}
   correctText: {fileID: 1016329352}
   wrongText: {fileID: 1047877492}
   totalText: {fileID: 1683213346}

@@ -40,6 +40,12 @@ public class GameManager_MemoryGame : MonoBehaviour
     public Slider sliderRight;
     public Slider sliderLeft;
 
+    public Image sliderRightImage;
+    public Image sliderLeftImage;
+    private Color startColor = new Color(255, 255, 255, 1);
+    private Color endColor = new Color(255, 255, 255, 0);
+    private float startSliderTime;
+
     //endscreen
     private int totalCorrect = 0;
     private int totalWrong = 0;
@@ -76,24 +82,6 @@ public class GameManager_MemoryGame : MonoBehaviour
         //isGenerated = false;
     }
 
-    void CountdownTrigger()
-    {
-        countdownCurrentTime = countdownStartTime;
-        StartCoroutine(WaitBeforeShow());
-    }
-    void DoCountdown()
-    {
-
-        countdownCurrentTime -= 1 * Time.deltaTime;
-        countdownText.text = countdownCurrentTime.ToString("0");
-
-        if (countdownCurrentTime <= 0)
-        {
-
-            countdownCurrentTime = 0;
-        }
-    }
-
     //bool isGenerated = false;
     //float startTime;
     void Update()
@@ -124,12 +112,17 @@ public class GameManager_MemoryGame : MonoBehaviour
         //        AddTileJudgement();
         //    }
         //}
+
         DoCountdown();
         if (memoryPauseScreen.activeSelf || memoryCountdownScreen.activeSelf == false)
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
 
+            if (timeRemaining <= 5)
+            {
+                BlinkSlider();
+            }
             if (timeRemaining <= 0)
             {
                 timeRemaining = 0;
@@ -149,6 +142,31 @@ public class GameManager_MemoryGame : MonoBehaviour
                 memoryEndScreen.SetActive(true);
             }
         }
+    }
+
+    void CountdownTrigger()
+    {
+        countdownCurrentTime = countdownStartTime;
+        StartCoroutine(WaitBeforeShow());
+    }
+    void DoCountdown()
+    {
+
+        countdownCurrentTime -= 1 * Time.deltaTime;
+        countdownText.text = countdownCurrentTime.ToString("0");
+
+        if (countdownCurrentTime <= 0)
+        {
+
+            countdownCurrentTime = 0;
+        }
+    }
+
+    void BlinkSlider()
+    {
+        float t = ((Mathf.Sin((Time.time - startSliderTime) * 9) / 2) + 0.5f);
+        sliderLeftImage.color = Color.Lerp(startColor, endColor, t);
+        sliderRightImage.color = Color.Lerp(startColor, endColor, t);
     }
 
     //countdown timer

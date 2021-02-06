@@ -11,13 +11,13 @@ public class MenuManager_MathGame : MonoBehaviour
 
     public void Restart()
     {
-        PlayerPrefs.SetInt("IsMathProblemStart", 0);
+        PlayerPrefs.SetInt("IsMathGameStart", 0);
         SceneManager.LoadScene(1);
     }
 
     public void BackMath()
     {
-        PlayerPrefs.SetInt("IsMathProblemStart", 0);
+        PlayerPrefs.SetInt("IsMathGameStart", 0);
         SceneManager.LoadScene(0);
     }
 

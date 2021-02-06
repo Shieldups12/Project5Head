@@ -11,11 +11,13 @@ public class MenuManager_TriviaGame : MonoBehaviour
 
     public void Restart()
     {
+        PlayerPrefs.SetInt("IsTriviaGameStart", 0);
         SceneManager.LoadScene(3);
     }
 
     public void BackTrivia()
     {
+        PlayerPrefs.SetInt("IsTriviaGameStart", 0);
         SceneManager.LoadScene(0);
     }
 

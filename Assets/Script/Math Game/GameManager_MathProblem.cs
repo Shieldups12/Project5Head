@@ -43,6 +43,7 @@ public class GameManager_MathProblem : MonoBehaviour
     private float timeRemaining = 30f;
     public Slider sliderRight;
     public Slider sliderLeft;
+
     public Image sliderRightImage;
     public Image sliderLeftImage;
     private Color startColor = new Color(255, 255, 255, 1);
@@ -65,7 +66,7 @@ public class GameManager_MathProblem : MonoBehaviour
 
     void Start()
     {
-        if(PlayerPrefs.GetInt("IsMathProblemStart",0) == 0)
+        if(PlayerPrefs.GetInt("IsMathGameStart",0) == 0)
         {
             CountdownTrigger();
         }
@@ -77,30 +78,7 @@ public class GameManager_MathProblem : MonoBehaviour
         DisplayMathQuestion();
         FinalMathScore();
     }
-    void CountdownTrigger()
-    {
-        countdownCurrentTime = countdownStartTime;
-        StartCoroutine(WaitBeforeShow());
-    }
-    void DoCountdown()
-    {
-        
-        countdownCurrentTime -= 1 * Time.deltaTime;
-        countdownText.text = countdownCurrentTime.ToString("0");
-
-        if (countdownCurrentTime <= 0)
-        {
-            
-            countdownCurrentTime = 0;
-        }
-    }
     
-    void BlinkSlider()
-    {
-        float t = ((Mathf.Sin((Time.time - startSliderTime) * 9) / 2) + 0.5f);
-        sliderLeftImage.color = Color.Lerp(startColor, endColor, t);
-        sliderRightImage.color = Color.Lerp(startColor, endColor, t);
-    }
     void Update()
     {
         DoCountdown();
@@ -110,7 +88,7 @@ public class GameManager_MathProblem : MonoBehaviour
         {
             sliderRight.value = timeRemaining;
             sliderLeft.value = timeRemaining;
-            if(timeRemaining <= 10)
+            if(timeRemaining <= 5)
             {
                 BlinkSlider();
             }
@@ -135,13 +113,38 @@ public class GameManager_MathProblem : MonoBehaviour
         }
     }
 
+    void CountdownTrigger()
+    {
+        countdownCurrentTime = countdownStartTime;
+        StartCoroutine(WaitBeforeShow());
+    }
+    void DoCountdown()
+    {
+
+        countdownCurrentTime -= 1 * Time.deltaTime;
+        countdownText.text = countdownCurrentTime.ToString("0");
+
+        if (countdownCurrentTime <= 0)
+        {
+
+            countdownCurrentTime = 0;
+        }
+    }
+
+    void BlinkSlider()
+    {
+        float t = ((Mathf.Sin((Time.time - startSliderTime) * 9) / 2) + 0.5f);
+        sliderLeftImage.color = Color.Lerp(startColor, endColor, t);
+        sliderRightImage.color = Color.Lerp(startColor, endColor, t);
+    }
+
     //countdown timer
     IEnumerator WaitBeforeShow()
     {
         mathCountdownScreen.SetActive(true);
         yield return new WaitForSeconds(3);
         startSliderTime = Time.time;
-        PlayerPrefs.SetInt("IsMathProblemStart", 1);
+        PlayerPrefs.SetInt("IsMathGameStart", 1);
         mathCountdownScreen.SetActive(false);
         mathText.gameObject.SetActive(true);
     }
